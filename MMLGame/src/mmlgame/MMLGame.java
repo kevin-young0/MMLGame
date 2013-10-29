@@ -47,6 +47,11 @@ public class MMLGame extends javax.swing.JFrame {
 
         btnAddImage.setText("Add Image");
         btnAddImage.setToolTipText("");
+        btnAddImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddImageActionPerformed(evt);
+            }
+        });
 
         btnCredits.setText("Credits");
 
@@ -120,8 +125,14 @@ public class MMLGame extends javax.swing.JFrame {
         GameScreen1 frame = new GameScreen1();
         
         frame.setVisible(true);
-        
     }//GEN-LAST:event_btnStartGameActionPerformed
+
+    private void btnAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddImageActionPerformed
+        // TODO add your handling code here:
+        ImageEditor frame = new ImageEditor();
+        
+        frame.setVisible(true);
+    }//GEN-LAST:event_btnAddImageActionPerformed
 
     /**
      * @param args the command line arguments
