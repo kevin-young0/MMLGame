@@ -54,6 +54,11 @@ public class MMLGame extends javax.swing.JFrame {
         });
 
         btnCredits.setText("Credits");
+        btnCredits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreditsActionPerformed(evt);
+            }
+        });
 
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +138,12 @@ public class MMLGame extends javax.swing.JFrame {
         
         frame.setVisible(true);
     }//GEN-LAST:event_btnAddImageActionPerformed
+
+    private void btnCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditsActionPerformed
+        // TODO add your handling code here:
+        Credits frame = new Credits();
+        frame.setVisible(true);
+    }//GEN-LAST:event_btnCreditsActionPerformed
 
     /**
      * @param args the command line arguments
