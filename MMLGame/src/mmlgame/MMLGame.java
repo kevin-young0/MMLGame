@@ -11,7 +11,7 @@ package mmlgame;
 public class MMLGame extends javax.swing.JFrame {
     
     /**
-     * Creates new form MMLGame
+     * Creates new form MMLGame...
      */
     public MMLGame() {
         initComponents();
@@ -128,7 +128,7 @@ public class MMLGame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartGameActionPerformed
 
     private void btnAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddImageActionPerformed
-        // TODO add your handling code here:
+        
         ImageEditor frame = new ImageEditor();
         
         frame.setVisible(true);
