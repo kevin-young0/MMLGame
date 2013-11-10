@@ -4,6 +4,9 @@
  */
 package mmlgame;
 
+import java.awt.Dialog;
+import javax.swing.JDialog;
+
 /**
  *
  * @author Kevin
@@ -34,6 +37,7 @@ public class MMLGame extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
         lblLogo.setText("jLabel1");
@@ -126,10 +130,16 @@ public class MMLGame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnStartGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartGameActionPerformed
-        // TODO add your handling code here:
-        GameScreen1 frame = new GameScreen1();
+        JDialog dialog = new GameScreen(this);
         
-        frame.setVisible(true);
+        // Hide Menu window
+        this.setVisible(false);
+        
+        // Show dialog
+        dialog.setVisible(true);
+        
+        // reshow Menu window
+        this.setVisible(true);
     }//GEN-LAST:event_btnStartGameActionPerformed
 
     private void btnAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddImageActionPerformed
