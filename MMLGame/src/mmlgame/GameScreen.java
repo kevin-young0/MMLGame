@@ -1,5 +1,5 @@
 package mmlgame;
-import java.awt.*;      // Needed for the FlowLayout manager
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -9,71 +9,36 @@ import javax.swing.*;
  * with a JFrame object's content pane.
  */
 
-public class GameScreen extends JFrame implements ActionListener
+public class GameScreen extends JDialog implements ActionListener
 {
    private JButton btnNewGame;//Some button
    private JComboBox cboImages;//Images for game screen cards
-   private final int WINDOW_WIDTH = 600;//default window width
-   private final int WINDOW_HEIGHT = 400;//default window height
+   //private final int WINDOW_WIDTH = 600;//default window width
+   //private final int WINDOW_HEIGHT = 400;//default window height
 
    //Start of Constructor
-   public GameScreen()
+   public GameScreen(JFrame owner)
    {
+       setPreferredSize(new Dimension(600,400));
+       setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+       setLocationRelativeTo(owner);
       // Set the title bar text.
-      super("MMLG");
+      //super("MMLG");
 
       // Set the default size of the main window:
-      setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-      setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));//don't allow
+      //setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+      //setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));//don't allow
       //main window to scale any smaller that the default height and width
 
       // Specify what happens when the close button is clicked.
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-      //Add a GridBagLayout manager to the main window (content pane):      
-      this.setLayout(new GridBagLayout());      
+      //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       
-      
-      //Create Cards panel
-      JPanel pnlGameScreen = new JPanel();
-      
-      //Call the "createGameScreen" method to build the navigation
-      //panel in the main window:
-      createGameScreen(pnlGameScreen);
-      
-          
-      //Add Game Screen panel to main window:
-      GridBagConstraints gbc = new GridBagConstraints();
-      gbc.gridx = 0;
-      gbc.gridy = 0;
-      gbc.fill = GridBagConstraints.BOTH;//automatically scale the Game Screen
-      //panel BOTH horizontally and vertically upon window resize
-      gbc.weightx = 1;
-      gbc.weighty = 1;//scale navigation panel component 100% vertically upon 
-      //window resizing (for example, when the window resizes 50px vertically, 
-      //resize the navigation panel 50px vertically)
-      this.add(pnlGameScreen, gbc);      
-      
-      
-      //Create the Navigatin panel:
-      JPanel pnlNavigation = new JPanel();
-      
-      //Call the "createNavigationPanel" method to build the navigation
-      //panel in the main window:
-      createNavigationPanel(pnlNavigation);
-      
-      //Add navigation panel to main window:
-      gbc = new GridBagConstraints();
-      gbc.gridx = 1;
-      gbc.gridy = 0;
-      gbc.fill = GridBagConstraints.VERTICAL;
-      gbc.weightx = 0;
-      gbc.weighty = 1;
-      this.add(pnlNavigation, gbc);
-      
+      initPanel();
+        
+      pack();
 
       //Display the window:
-      setVisible(true);
+      //setVisible(true);
    }
    //End of Constructor
    
@@ -165,7 +130,48 @@ public class GameScreen extends JFrame implements ActionListener
       
    }
    
-   
+   public void initPanel(){
+       //Add a GridBagLayout manager to the main window (content pane):      
+      this.setLayout(new GridBagLayout());      
+      
+      
+      //Create Cards panel
+      JPanel pnlGameScreen = new JPanel();
+      
+      //Call the "createGameScreen" method to build the navigation
+      //panel in the main window:
+      createGameScreen(pnlGameScreen);
+      
+          
+      //Add Game Screen panel to main window:
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx = 0;
+      gbc.gridy = 0;
+      gbc.fill = GridBagConstraints.BOTH;//automatically scale the Game Screen
+      //panel BOTH horizontally and vertically upon window resize
+      gbc.weightx = 1;
+      gbc.weighty = 1;//scale navigation panel component 100% vertically upon 
+      //window resizing (for example, when the window resizes 50px vertically, 
+      //resize the navigation panel 50px vertically)
+      this.add(pnlGameScreen, gbc);      
+      
+      
+      //Create the Navigatin panel:
+      JPanel pnlNavigation = new JPanel();
+      
+      //Call the "createNavigationPanel" method to build the navigation
+      //panel in the main window:
+      createNavigationPanel(pnlNavigation);
+      
+      //Add navigation panel to main window:
+      gbc = new GridBagConstraints();
+      gbc.gridx = 1;
+      gbc.gridy = 0;
+      gbc.fill = GridBagConstraints.VERTICAL;
+      gbc.weightx = 0;
+      gbc.weighty = 1;
+      this.add(pnlNavigation, gbc);
+   }
    
    
    public static void main(String[] args)

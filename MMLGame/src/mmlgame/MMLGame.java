@@ -130,7 +130,7 @@ public class MMLGame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnStartGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartGameActionPerformed
-        JDialog dialog = new TestPanel(this);
+        JDialog dialog = new GameScreen(this);
         
         // Hide Menu window
         this.setVisible(false);
