@@ -1,10 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This Gui will be designed to upload images, place images automatically, and
+ *use a combo box to choose between default images, and/or create new categories
+ *to choose from. Keeping in mind the panels re-sizing abilities...
  */
 
 package mmlgame;
+
+import java.awt.Component;
+import java.awt.Graphics;
+import java.io.File;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +27,7 @@ public class ImageEditor extends javax.swing.JFrame {
     public ImageEditor() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,44 +38,60 @@ public class ImageEditor extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        btnUpload = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        btnImages = new javax.swing.JComboBox();
+        icon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Upload");
-
-        jButton2.setText("Exit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnUpload.setText("Upload");
+        btnUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnUploadActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbtnExitActionPerformed(evt);
+            }
+        });
+
+        btnImages.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
+        btnImages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1)
+                .addComponent(btnUpload)
                 .addGap(88, 88, 88)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(24, 24, 24))
+                .addComponent(btnImages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addComponent(btnExit))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(269, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(icon, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUpload)
+                    .addComponent(btnExit)
+                    .addComponent(btnImages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -97,10 +122,33 @@ public class ImageEditor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbtnExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnbtnExitActionPerformed
 
+    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
+        //Create a file chooser...
+        JFileChooser fc = new JFileChooser();
+
+        //In response to a button click:
+        int returnVal = fc.showOpenDialog(null);
+
+        fc.setFileSelectionMode(fc.DIRECTORIES_ONLY);
+        if (returnVal == fc.APPROVE_OPTION) {
+            File selectedFile = fc.getSelectedFile();
+            String filename = selectedFile.getPath();
+            JOptionPane.showMessageDialog(null, "You selected " + filename);
+            ImageIcon imageView = new ImageIcon(filename);
+            icon.setIcon(imageView);
+            
+            
+        }
+    }//GEN-LAST:event_btnUploadActionPerformed
+
+    private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagesActionPerformed
+
+    }//GEN-LAST:event_btnImagesActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -132,14 +180,15 @@ public class ImageEditor extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ImageEditor().setVisible(true);
-            }
-        });
+            }            
+        });        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JComboBox btnImages;
+    private javax.swing.JButton btnUpload;
+    private javax.swing.JLabel icon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
