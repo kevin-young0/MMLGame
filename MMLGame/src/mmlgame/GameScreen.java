@@ -13,13 +13,15 @@ public class GameScreen extends JDialog implements ActionListener
 {
    private JButton btnNewGame;//Some button
    private JComboBox cboImages;//Images for game screen cards
-   //private final int WINDOW_WIDTH = 600;//default window width
-   //private final int WINDOW_HEIGHT = 400;//default window height
+   private final int WINDOW_WIDTH = 600;//default window width
+   private final int WINDOW_HEIGHT = 400;//default window height
 
    //Start of Constructor
    public GameScreen(JFrame owner)
    {
        setPreferredSize(new Dimension(600,400));
+       setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));//don't allow
+      //main window to scale any smaller that the default height and width
        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
        setLocationRelativeTo(owner);
       // Set the title bar text.
