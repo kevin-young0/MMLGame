@@ -127,11 +127,197 @@ public class GameScreen extends JDialog implements ActionListener
       //Add a GridBagLayout manager to the Game Screen Panel:      
       pnlGameScreen.setLayout(new GridBagLayout());
       
+      /*
+      Beginner difficulty will have 6 cards:
+      */
+      //
+      Insets cardPadding = new Insets(3,3,3,3);
+      
+      //Beginner Card 1 (row 1, column 1):
+      JPanel pnlBeginnerCard1 = new JPanel();
+      pnlBeginnerCard1.setBackground(Color.RED);
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridy = 0;//row 1
+      gbc.gridx = 0;//column 1           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard1, gbc);
+      
+      //Beginner Card 2 (row 1, column 2):
+      JPanel pnlBeginnerCard2 = new JPanel();
+      pnlBeginnerCard2.setBackground(Color.BLUE);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 0;//row 1
+      gbc.gridx = 1;//column 2           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard2, gbc);
+      
+      //Beginner Card 3 (row 1, column 3):
+      JPanel pnlBeginnerCard3 = new JPanel();
+      pnlBeginnerCard3.setBackground(Color.MAGENTA);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 0;//row 1
+      gbc.gridx = 2;//column 3           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard3, gbc);
+      
+      //Beginner Card 4 (row 2, column 1):
+      JPanel pnlBeginnerCard4 = new JPanel();
+      pnlBeginnerCard4.setBackground(Color.ORANGE);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 1;//row 2
+      gbc.gridx = 0;//column 1           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard4, gbc);
+      
+      //Beginner Card 5 (row 2, column 2):
+      JPanel pnlBeginnerCard5 = new JPanel();
+      pnlBeginnerCard5.setBackground(Color.WHITE);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 1;//row 2
+      gbc.gridx = 1;//column 2           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard5, gbc);
+      
+      //Beginner Card 1 (row 2, column 3):
+      JPanel pnlBeginnerCard6 = new JPanel();
+      pnlBeginnerCard6.setBackground(Color.DARK_GRAY);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 1;//row 2
+      gbc.gridx = 2;//column 3           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard6, gbc);
+      
+      
       
    }
    
+   private void createGameScreen2(JPanel pnlGameScreen) {
+       pnlGameScreen.setBackground(Color.CYAN);
+      
+      //Add a GridBagLayout manager to the Game Screen Panel:      
+      pnlGameScreen.setLayout(new GridBagLayout());
+      
+      /*
+      Beginner difficulty will have 6 cards:
+      */
+      //
+      Insets cardPadding = new Insets(3,3,3,3);
+      
+      //Beginner Card 1 (row 1, column 1):
+      JPanel pnlBeginnerCard1 = new JPanel();
+      pnlBeginnerCard1.setBackground(Color.RED);
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridy = 0;//row 1
+      gbc.gridx = 0;//column 1           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard1, gbc);
+      
+      //Beginner Card 2 (row 1, column 2):
+      JPanel pnlBeginnerCard2 = new JPanel();
+      pnlBeginnerCard2.setBackground(Color.BLUE);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 0;//row 1
+      gbc.gridx = 1;//column 2           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard2, gbc);
+      
+      //Beginner Card 3 (row 1, column 3):
+      JPanel pnlBeginnerCard3 = new JPanel();
+      pnlBeginnerCard3.setBackground(Color.MAGENTA);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 0;//row 1
+      gbc.gridx = 2;//column 3           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard3, gbc);
+      
+      //Beginner Card 4 (row 2, column 1):
+      JPanel pnlBeginnerCard4 = new JPanel();
+      pnlBeginnerCard4.setBackground(Color.ORANGE);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 1;//row 2
+      gbc.gridx = 0;//column 1           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard4, gbc);
+      
+      //Beginner Card 5 (row 2, column 2):
+      JPanel pnlBeginnerCard5 = new JPanel();
+      pnlBeginnerCard5.setBackground(Color.WHITE);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 1;//row 2
+      gbc.gridx = 1;//column 2           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard5, gbc);
+      
+      //Beginner Card 1 (row 2, column 3):
+      JPanel pnlBeginnerCard6 = new JPanel();
+      pnlBeginnerCard6.setBackground(Color.DARK_GRAY);
+      gbc = new GridBagConstraints();
+      gbc.gridy = 1;//row 2
+      gbc.gridx = 2;//column 3           
+      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+      //for the combobox if it needs to stretch when we start populating it.
+      gbc.weightx = .1;
+      gbc.weighty = .1;
+      gbc.insets = cardPadding;
+      pnlGameScreen.add(pnlBeginnerCard6, gbc);
+      
+      
+      
+   }
+   
+   
+   
+   public static void main(String[] args)
+   {
+      //new GameScreen();//New instance ignored?
+   }
+   
    private void initPanel(){
-       //Add a GridBagLayout manager to the main window (content pane):      
+            //Add a GridBagLayout manager to the main window (content pane):      
       this.setLayout(new GridBagLayout());      
       
       
@@ -171,13 +357,7 @@ public class GameScreen extends JDialog implements ActionListener
       gbc.weightx = 0;
       gbc.weighty = 1;
       this.add(pnlNavigation, gbc);
-   }
-   
-   
-   public static void main(String[] args)
-   {
-      //new GameScreen();//New instance ignored?
-   }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -188,6 +368,5 @@ public class GameScreen extends JDialog implements ActionListener
         //use for loop to loop through array-list of cards
         
         //place cards in gridy, gridx
-    }
+   }
 }
-
