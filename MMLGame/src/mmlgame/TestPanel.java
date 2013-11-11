@@ -91,7 +91,7 @@ public class TestPanel extends JDialog {
         );
         btnPanelLayout.setVerticalGroup(
             btnPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, btnPanelLayout.createSequentialGroup()
+               .addGroup(GroupLayout.Alignment.TRAILING, btnPanelLayout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(btnPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpload)

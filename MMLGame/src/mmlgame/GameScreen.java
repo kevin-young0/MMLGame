@@ -2,6 +2,13 @@ package mmlgame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.*;
 
 /**
@@ -13,8 +20,8 @@ public class GameScreen extends JDialog implements ActionListener
 {
    private JButton btnNewGame;//Some button
    private JComboBox cboImages;//Images for game screen cards
-   private final int WINDOW_WIDTH = 600;//default window width
-   private final int WINDOW_HEIGHT = 400;//default window height
+   private final int WINDOW_WIDTH = 650;//default window width
+   private final int WINDOW_HEIGHT = 498;//default window height
 
    //Start of Constructor
    public GameScreen(JFrame owner)
@@ -137,7 +144,16 @@ public class GameScreen extends JDialog implements ActionListener
       
       //Beginner Card 1 (row 1, column 1):
       JPanel pnlBeginnerCard1 = new JPanel();
+      JLabel lblBeginnerCard1 = new JLabel();
+      lblBeginnerCard1.setPreferredSize(new Dimension(144,216));
+      lblBeginnerCard1.setMaximumSize(new Dimension(144,216));
+      pnlBeginnerCard1.add(lblBeginnerCard1);
       pnlBeginnerCard1.setBackground(Color.RED);
+      //JFileChooser fc = new JFileChooser();
+      //File file = new File("../images/card.png");
+      ImageIcon imageView = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+      lblBeginnerCard1.setIcon(imageView);
+      //pnlBeginnerCard1.setBackground(Color.RED);
       GridBagConstraints gbc = new GridBagConstraints();
       gbc.gridy = 0;//row 1
       gbc.gridx = 0;//column 1           
@@ -150,7 +166,16 @@ public class GameScreen extends JDialog implements ActionListener
       
       //Beginner Card 2 (row 1, column 2):
       JPanel pnlBeginnerCard2 = new JPanel();
+      JLabel lblBeginnerCard2 = new JLabel();
+      lblBeginnerCard2.setPreferredSize(new Dimension(144,216));
+      lblBeginnerCard2.setMaximumSize(new Dimension(144,216));
+      pnlBeginnerCard2.add(lblBeginnerCard2);
       pnlBeginnerCard2.setBackground(Color.BLUE);
+      //JFileChooser fc = new JFileChooser();
+      //File file = new File("../images/card.png");
+      imageView = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+      lblBeginnerCard2.setIcon(imageView);
+      //pnlBeginnerCard2.setBackground(Color.BLUE);
       gbc = new GridBagConstraints();
       gbc.gridy = 0;//row 1
       gbc.gridx = 1;//column 2           
@@ -163,7 +188,16 @@ public class GameScreen extends JDialog implements ActionListener
       
       //Beginner Card 3 (row 1, column 3):
       JPanel pnlBeginnerCard3 = new JPanel();
+      JLabel lblBeginnerCard3 = new JLabel();
+      lblBeginnerCard3.setPreferredSize(new Dimension(144,216));
+      lblBeginnerCard3.setMaximumSize(new Dimension(144,216));
+      pnlBeginnerCard3.add(lblBeginnerCard3);
       pnlBeginnerCard3.setBackground(Color.MAGENTA);
+      //JFileChooser fc = new JFileChooser();
+      //File file = new File("../images/card.png");
+      imageView = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+      lblBeginnerCard3.setIcon(imageView);
+      //pnlBeginnerCard3.setBackground(Color.MAGENTA);
       gbc = new GridBagConstraints();
       gbc.gridy = 0;//row 1
       gbc.gridx = 2;//column 3           
@@ -176,7 +210,16 @@ public class GameScreen extends JDialog implements ActionListener
       
       //Beginner Card 4 (row 2, column 1):
       JPanel pnlBeginnerCard4 = new JPanel();
+      JLabel lblBeginnerCard4 = new JLabel();
+      lblBeginnerCard4.setPreferredSize(new Dimension(144,216));
+      lblBeginnerCard4.setMaximumSize(new Dimension(144,216));
+      pnlBeginnerCard4.add(lblBeginnerCard4);
       pnlBeginnerCard4.setBackground(Color.ORANGE);
+      //JFileChooser fc = new JFileChooser();
+      //File file = new File("../images/card.png");
+      imageView = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+      lblBeginnerCard4.setIcon(imageView);
+      //pnlBeginnerCard4.setBackground(Color.ORANGE);
       gbc = new GridBagConstraints();
       gbc.gridy = 1;//row 2
       gbc.gridx = 0;//column 1           
@@ -189,7 +232,16 @@ public class GameScreen extends JDialog implements ActionListener
       
       //Beginner Card 5 (row 2, column 2):
       JPanel pnlBeginnerCard5 = new JPanel();
+      JLabel lblBeginnerCard5 = new JLabel();
+      lblBeginnerCard5.setPreferredSize(new Dimension(144,216));
+      lblBeginnerCard5.setMaximumSize(new Dimension(144,216));
+      pnlBeginnerCard5.add(lblBeginnerCard5);
       pnlBeginnerCard5.setBackground(Color.WHITE);
+      //JFileChooser fc = new JFileChooser();
+      //File file = new File("../images/card.png");
+      imageView = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+      lblBeginnerCard5.setIcon(imageView);
+      //pnlBeginnerCard5.setBackground(Color.WHITE);
       gbc = new GridBagConstraints();
       gbc.gridy = 1;//row 2
       gbc.gridx = 1;//column 2           
@@ -201,9 +253,24 @@ public class GameScreen extends JDialog implements ActionListener
       pnlGameScreen.add(pnlBeginnerCard5, gbc);
       
       //Beginner Card 6 (row 2, column 3):
-      JPanel pnlBeginnerCard6 = new JPanel();
-      //setMaximumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+      JPanel pnlBeginnerCard6 = new JPanel();    
+      //pnlBeginnerCard6.setPreferredSize(new Dimension(146,218));
+      //pnlBeginnerCard6.setMaximumSize(new Dimension(146,218));
+      JLabel lblBeginnerCard6 = new JLabel();
+      lblBeginnerCard6.setPreferredSize(new Dimension(144,216));
+      lblBeginnerCard6.setMaximumSize(new Dimension(144,216));
+      pnlBeginnerCard6.add(lblBeginnerCard6);
       pnlBeginnerCard6.setBackground(Color.DARK_GRAY);
+      //JFileChooser fc = new JFileChooser();
+      //File file = new File("../images/card.png");
+      BufferedImage image = null;
+       try {
+           image = ImageIO.read(new File("/images/card.png"));
+       } catch (IOException ex) {
+           Logger.getLogger(GameScreen.class.getName()).log(Level.SEVERE, null, ex);
+       }
+      imageView = new ImageIcon(image);
+      lblBeginnerCard6.setIcon(imageView);
       gbc = new GridBagConstraints();
       gbc.gridy = 1;//row 2
       gbc.gridx = 2;//column 3           
@@ -217,104 +284,7 @@ public class GameScreen extends JDialog implements ActionListener
       
       
    }
-   
-   private void createGameScreen2(JPanel pnlGameScreen) {
-       pnlGameScreen.setBackground(Color.CYAN);
-      
-      //Add a GridBagLayout manager to the Game Screen Panel:      
-      pnlGameScreen.setLayout(new GridBagLayout());
-      
-      /*
-      Beginner difficulty will have 6 cards:
-      */
-      //
-      Insets cardPadding = new Insets(3,3,3,3);
-      
-      //Beginner Card 1 (row 1, column 1):
-      JPanel pnlBeginnerCard1 = new JPanel();
-      pnlBeginnerCard1.setBackground(Color.RED);
-      GridBagConstraints gbc = new GridBagConstraints();
-      gbc.gridy = 0;//row 1
-      gbc.gridx = 0;//column 1           
-      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
-      //for the combobox if it needs to stretch when we start populating it.
-      gbc.weightx = .1;
-      gbc.weighty = .1;
-      gbc.insets = cardPadding;
-      pnlGameScreen.add(pnlBeginnerCard1, gbc);
-      
-      //Beginner Card 2 (row 1, column 2):
-      JPanel pnlBeginnerCard2 = new JPanel();
-      pnlBeginnerCard2.setBackground(Color.BLUE);
-      gbc = new GridBagConstraints();
-      gbc.gridy = 0;//row 1
-      gbc.gridx = 1;//column 2           
-      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
-      //for the combobox if it needs to stretch when we start populating it.
-      gbc.weightx = .1;
-      gbc.weighty = .1;
-      gbc.insets = cardPadding;
-      pnlGameScreen.add(pnlBeginnerCard2, gbc);
-      
-      //Beginner Card 3 (row 1, column 3):
-      JPanel pnlBeginnerCard3 = new JPanel();
-      pnlBeginnerCard3.setBackground(Color.MAGENTA);
-      gbc = new GridBagConstraints();
-      gbc.gridy = 0;//row 1
-      gbc.gridx = 2;//column 3           
-      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
-      //for the combobox if it needs to stretch when we start populating it.
-      gbc.weightx = .1;
-      gbc.weighty = .1;
-      gbc.insets = cardPadding;
-      pnlGameScreen.add(pnlBeginnerCard3, gbc);
-      
-      //Beginner Card 4 (row 2, column 1):
-      JPanel pnlBeginnerCard4 = new JPanel();
-      pnlBeginnerCard4.setBackground(Color.ORANGE);
-      gbc = new GridBagConstraints();
-      gbc.gridy = 1;//row 2
-      gbc.gridx = 0;//column 1           
-      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
-      //for the combobox if it needs to stretch when we start populating it.
-      gbc.weightx = .1;
-      gbc.weighty = .1;
-      gbc.insets = cardPadding;
-      pnlGameScreen.add(pnlBeginnerCard4, gbc);
-      
-      //Beginner Card 5 (row 2, column 2):
-      JPanel pnlBeginnerCard5 = new JPanel();
-      pnlBeginnerCard5.setBackground(Color.WHITE);
-      gbc = new GridBagConstraints();
-      gbc.gridy = 1;//row 2
-      gbc.gridx = 1;//column 2           
-      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
-      //for the combobox if it needs to stretch when we start populating it.
-      gbc.weightx = .1;
-      gbc.weighty = .1;
-      gbc.insets = cardPadding;
-      pnlGameScreen.add(pnlBeginnerCard5, gbc);
-      
-      //Beginner Card 1 (row 2, column 3):
-      JPanel pnlBeginnerCard6 = new JPanel();
-      pnlBeginnerCard6.setBackground(Color.DARK_GRAY);
-      gbc = new GridBagConstraints();
-      gbc.gridy = 1;//row 2
-      gbc.gridx = 2;//column 3           
-      gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
-      //for the combobox if it needs to stretch when we start populating it.
-      gbc.weightx = .1;
-      gbc.weighty = .1;
-      gbc.insets = cardPadding;
-      pnlGameScreen.add(pnlBeginnerCard6, gbc);
-      
-      
-      
-   }
-   
-   
-   
-   public static void main(String[] args)
+     public static void main(String[] args)
    {
       //new GameScreen();//New instance ignored?
    }
