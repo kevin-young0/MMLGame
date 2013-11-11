@@ -130,7 +130,7 @@ public class GameScreen extends JDialog implements ActionListener
       
    }
    
-   public void initPanel(){
+   private void initPanel(){
        //Add a GridBagLayout manager to the main window (content pane):      
       this.setLayout(new GridBagLayout());      
       
@@ -176,7 +176,7 @@ public class GameScreen extends JDialog implements ActionListener
    
    public static void main(String[] args)
    {
-      new GameScreen();//New instance ignored?
+      //new GameScreen();//New instance ignored?
    }
 
     @Override

@@ -144,9 +144,16 @@ public class MMLGame extends javax.swing.JFrame {
 
     private void btnAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddImageActionPerformed
         
-        ImageEditor frame = new ImageEditor();
+        JDialog dialog = new TestPanel(this);
         
-        frame.setVisible(true);
+        // Hide Menu window
+        this.setVisible(false);
+        
+        // Show dialog
+        dialog.setVisible(true);
+        
+        // reshow Menu window
+        this.setVisible(true);
     }//GEN-LAST:event_btnAddImageActionPerformed
 
     private void btnCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditsActionPerformed
