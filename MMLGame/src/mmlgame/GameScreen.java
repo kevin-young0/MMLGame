@@ -200,8 +200,9 @@ public class GameScreen extends JDialog implements ActionListener
       gbc.insets = cardPadding;
       pnlGameScreen.add(pnlBeginnerCard5, gbc);
       
-      //Beginner Card 1 (row 2, column 3):
+      //Beginner Card 6 (row 2, column 3):
       JPanel pnlBeginnerCard6 = new JPanel();
+      //setMaximumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
       pnlBeginnerCard6.setBackground(Color.DARK_GRAY);
       gbc = new GridBagConstraints();
       gbc.gridy = 1;//row 2
