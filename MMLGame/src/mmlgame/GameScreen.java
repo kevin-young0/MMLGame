@@ -19,9 +19,9 @@ public class GameScreen extends JDialog implements ActionListener
    //Start of Constructor
    public GameScreen(JFrame owner)
    {
-       setPreferredSize(new Dimension(600,400));
+       //setPreferredSize(new Dimension(600,400));
        setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));//don't allow
-      //main window to scale any smaller that the default height and width
+      //main window to scale any smaller than the default height and width
        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
        setLocationRelativeTo(owner);
       // Set the title bar text.
