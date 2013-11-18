@@ -157,9 +157,17 @@ public class MMLGame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddImageActionPerformed
 
     private void btnCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditsActionPerformed
-        // TODO add your handling code here:
-        Credits frame = new Credits();
-        frame.setVisible(true);
+        
+        JDialog dialog = new Credits(this);
+        
+        // Hide Menu window
+        this.setVisible(false);
+        
+        // Show dialog
+        dialog.setVisible(true);
+        
+        // reshow Menu window
+        this.setVisible(true);
     }//GEN-LAST:event_btnCreditsActionPerformed
 
     /**
