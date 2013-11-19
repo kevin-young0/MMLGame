@@ -1,7 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This Gui will be designed to upload images, place images automatically, and
+ *use a combo box to choose between default images, and/or create new categories
+ *to choose from. Keeping in mind the panels re-sizing abilities...
  */
+
 package mmlgame;
 
 import java.awt.Component;
@@ -20,42 +22,49 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+
 /**
  *
- * @author Kevin
+ * @author KYoung, TBuchli
  */
 public class TestPanel extends JDialog {
     private JPanel btnPanel;
     private JButton btnUpload;
     private JButton btnExit;
-    private JComboBox btnImages;
+    private JComboBox cboSelectGroup;
     private JLabel icon;
     private JLabel lblLogo;
     private JPanel imgPanel;
+    private JButton btnSaveImage;
+    private JButton btnAddGroup;
+    private JTextField txtCaption;
 
     TestPanel(JFrame owner) {
-        setPreferredSize(new Dimension(600,400));
-        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        setLocationRelativeTo(owner);
         
+        setMinimumSize(new Dimension(490,470));
+        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        setLocationRelativeTo(owner);        
         
         initPanel();
         
         pack();
         
-    }
-    
-    
+    }    
     
     public void initPanel() {
         
         btnPanel = new JPanel();
         btnUpload = new JButton();
         btnExit = new JButton();
-        btnImages = new JComboBox();
+        cboSelectGroup = new JComboBox();
         icon = new JLabel();
         lblLogo = new JLabel();
         imgPanel = new JPanel();
+        btnSaveImage = new JButton();
+        btnAddGroup = new JButton();
+        txtCaption = new JTextField();
 
         btnUpload.setText("Upload");
         btnUpload.addActionListener(new java.awt.event.ActionListener() {
@@ -71,12 +80,18 @@ public class TestPanel extends JDialog {
             }
         });
 
-        btnImages.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
-        btnImages.addActionListener(new java.awt.event.ActionListener() {
+        cboSelectGroup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
+        cboSelectGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImagesActionPerformed(evt);
             }
         });
+        
+        txtCaption.setText("Caption");
+
+        btnSaveImage.setText("Save");
+
+        btnAddGroup.setText("Add Group");
 
         GroupLayout btnPanelLayout = new GroupLayout(btnPanel);
         btnPanel.setLayout(btnPanelLayout);
@@ -84,19 +99,29 @@ public class TestPanel extends JDialog {
             btnPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(btnPanelLayout.createSequentialGroup()
                 .addComponent(btnUpload)
-                .addGap(88, 88, 88)
-                .addComponent(btnImages, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtCaption, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cboSelectGroup, javax.swing.GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(btnAddGroup)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSaveImage)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit))
         );
+        
         btnPanelLayout.setVerticalGroup(
-            btnPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, btnPanelLayout.createSequentialGroup()
+            btnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnPanelLayout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(btnPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addGroup(btnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpload)
                     .addComponent(btnExit)
-                    .addComponent(btnImages, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboSelectGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCaption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSaveImage)
+                    .addComponent(btnAddGroup))
                 .addContainerGap())
         );
 
@@ -109,6 +134,7 @@ public class TestPanel extends JDialog {
             imgPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(icon, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+        
         imgPanelLayout.setVerticalGroup(
             imgPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(icon, GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
@@ -133,6 +159,7 @@ public class TestPanel extends JDialog {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+        
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -167,6 +194,7 @@ public class TestPanel extends JDialog {
             
             
         }
+    
     }                                         
 
     private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {                                          

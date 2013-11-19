@@ -144,7 +144,7 @@ public class MMLGame extends javax.swing.JFrame {
 
     private void btnAddImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddImageActionPerformed
         
-        JDialog dialog = new TestPanel(this);
+        JDialog dialog = new ImageEditor1(this);
         
         // Hide Menu window
         this.setVisible(false);
@@ -191,11 +191,17 @@ public class MMLGame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
+            
                 new MMLGame().setVisible(true);
+        
             }
+    
         });
+
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddImage;
     private javax.swing.JButton btnCredits;
@@ -204,4 +210,5 @@ public class MMLGame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblLogo;
     // End of variables declaration//GEN-END:variables
+
 }
