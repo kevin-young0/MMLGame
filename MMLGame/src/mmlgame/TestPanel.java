@@ -67,26 +67,26 @@ public class TestPanel extends JDialog {
         txtCaption = new JTextField();
 
         btnUpload.setText("Upload");
-        btnUpload.addActionListener(new java.awt.event.ActionListener() {
+/*        btnUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUploadActionPerformed(evt);
             }
         });
-
+*/
         btnExit.setText("Exit");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
+/*        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbtnExitActionPerformed(evt);
             }
         });
-
+*/
         cboSelectGroup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Default" }));
-        cboSelectGroup.addActionListener(new java.awt.event.ActionListener() {
+/*        cboSelectGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImagesActionPerformed(evt);
             }
         });
-        
+*/        
         txtCaption.setText("Caption");
 
         btnSaveImage.setText("Save");
@@ -173,11 +173,11 @@ public class TestPanel extends JDialog {
         );       
     }
     
-        private void btnbtnExitActionPerformed(java.awt.event.ActionEvent evt) {                                           
+/*        private void btnbtnExitActionPerformed(java.awt.event.ActionEvent evt) {                                           
             this.setVisible(false);
     }                                          
-
-    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {                                          
+*/
+/*    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {                                          
         //Create a file chooser...
         JFileChooser fc = new JFileChooser();
 
@@ -195,10 +195,10 @@ public class TestPanel extends JDialog {
             
         }
     
-    }                                         
+    }
+*/
+/*    private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {                                          
 
-    private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {                                          
-
     }                                         
-                
+*/                
 }
