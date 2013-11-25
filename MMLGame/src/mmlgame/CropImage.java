@@ -30,8 +30,8 @@ public class CropImage extends JFrame implements MouseListener, MouseMotionListe
     }
 
     public void start() {
-        ImagePanel im = new ImagePanel("F:\\Wallpaper\\wallpapers\\1.jpg");
-        add(im);
+      //  ImagePanel im = new ImagePanel("F:\\Wallpaper\\wallpapers\\1.jpg");
+       // add(im);
         setSize(400, 400);
         setVisible(true);
         addMouseListener(this);
