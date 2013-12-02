@@ -113,18 +113,19 @@ public class GameScreen extends JDialog implements ActionListener
       pnlNavigation.add(pnlSpacer, gbc);
       
       
-      /*
-JComboBox petList = new JComboBox(petStrings);
-petList.setSelectedIndex(4);
-petList.addActionListener(this);*/
+
       /*CBO DIFFICULTY HERE, GRIDY = 3*/
       //Create the Difficulty Combo Box, and add it to the navigation panel:
       String[] difficulty = {"Beginner", "Easy"};
-      cboDifficulty = new JComboBox();
+      cboDifficulty = new JComboBox(difficulty);
+      cboDifficulty.setSelectedIndex(0);//Beginner      
+      cboDifficulty.setSelectedIndex(1);//Easy
+      cboDifficulty.addActionListener(this);
+      
       cboDifficulty.setPreferredSize(new Dimension(150, 40));
       cboDifficulty.setMinimumSize(new Dimension(150, 40));
       
-      //Position and set the scaling properties for the Images ComboBox:
+      //Position and set the scaling properties for the Difficulty ComboBox:
       gbc = new GridBagConstraints();
       gbc.gridx = 0;
       gbc.gridy = 3;//set position for Images Combo Box in navigation panel
@@ -174,8 +175,9 @@ petList.addActionListener(this);*/
       pnlNavigation.add(pnlSpacer, gbc);
    }
    
-   private void createGameScreen(JPanel pnlGameScreen, ArrayList <ImageIcon> cards) {
-       pnlGameScreen.setBackground(Color.CYAN);
+   private void createGameScreen(ArrayList <Card> cards) {
+      pnlGameScreen.removeAll();
+      pnlGameScreen.setBackground(Color.CYAN);
       
       //Add a GridBagLayout manager to the Game Screen Panel:      
       pnlGameScreen.setLayout(new GridBagLayout());
@@ -197,10 +199,15 @@ petList.addActionListener(this);*/
              * "a" parameter is the integer on the back of each card;
              */
                 JPanel pnlCard = new JPanel();
-                JLabel lblCard = new JLabel();        
-                lblCard.setPreferredSize(new Dimension(144,216));
-                lblCard.setMaximumSize(new Dimension(144,216));
-                pnlCard.add(lblCard);
+                JLabel lblImage = new JLabel();        
+                lblImage.setPreferredSize(new Dimension(144,216));
+                lblImage.setMaximumSize(new Dimension(144,216));
+                if (cards.get(a).isShowing()) {
+                    lblImage.setIcon(cards.get(a).getfrontImage());
+                } else {
+                    lblImage.setIcon(cards.get(a).getbackImage());
+                }
+                pnlCard.add(lblImage);
                 pnlCard.setBackground(Color.RED);
                 //JFileChooser fc = new JFileChooser();
                 //File file = new File("../images/card.png");
@@ -208,8 +215,8 @@ petList.addActionListener(this);*/
                 //ImageIcon imageView = cards[a];
                 //lblCard.setIcon(imageView);      
                 GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridy = 0;//row 1
-                gbc.gridx = 0;//column 1           
+                gbc.gridy = row;//row 1
+                gbc.gridx = col;//column 1           
                 gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
                 //for the combobox if it needs to stretch when we start populating it.
                 gbc.weightx = .1;
@@ -232,6 +239,7 @@ petList.addActionListener(this);*/
       
       //http://stackoverflow.com/questions/14558959/adding-images-to-cells-in-a-gridlayout
       
+       pnlGameScreen.invalidate();
        }//end of createGameScreen
    
    
@@ -261,7 +269,7 @@ petList.addActionListener(this);*/
    
    
       //change "words" to frontImage (the hidden front of the card)
-    public void shuffle(ArrayList<ImageIcon> cards){//shuffle the randomly selected hidden images
+    public void shuffle(ArrayList<Card> cards){//shuffle the randomly selected hidden images
         r = new Random();//initialize the random object field
         for(int a = 0; a < cards.size(); a++){//loop through the array of words
             //(that is, the "Colors" from the String Array field)
@@ -273,13 +281,13 @@ petList.addActionListener(this);*/
             //cards is the exact same thing as rearranging the cards themselves.
             
              
-            ImageIcon waffles = (ImageIcon) cards.get(a);//cut out the card in 
+            Card waffles = cards.get(a);//cut out the card in 
             //index position a in our cards array list (note that "int a = 0;", 
             //as specifed in our for loop declaration), and store (paste) that 
             //card in "waffles". This clears the card array list's index position 
             //0 for another random card to take it's place. 
             
-            ImageIcon pancakes = (ImageIcon) cards.get(rndPos);//select (cut) another
+            Card pancakes = cards.get(rndPos);//select (cut) another
             //card in the cards array list (from a random index position, "rndPos"),
             //and store (paste) it in "pancakes". This clears that index position
             //(rndPos) for the card in "waffles" to take it's place.
@@ -328,16 +336,7 @@ petList.addActionListener(this);*/
       GridBagConstraints gbc = new GridBagConstraints();   
       
       
-      ///////////////////////////////
-//      ArrayList <Card> gameCards = new ArrayList();
-//      // Test Cards
-//      ImageIcon cardBackImage = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
-//      for (int numCards = 0; numCards < 6; numCards++) {
-//        Card gameCard = new Card();
-//        gameCard.setbackImage(cardBackImage);
-//        gameCards.add(gameCard);
-//      }
-      ////////////////////////////////
+      
       
       // End Test Cards            
 
@@ -361,9 +360,19 @@ petList.addActionListener(this);*/
       //Create the GameScreen Panel:
       pnlGameScreen = new JPanel();
       
+      ///////////////////////////////
+      ArrayList <Card> gameCards = new ArrayList();
+      // Test Cards
+      ImageIcon cardBackImage = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+      for (int numCards = 0; numCards < 6; numCards++) {
+        Card gameCard = new Card();
+        gameCard.setbackImage(cardBackImage);
+        gameCards.add(gameCard);
+      }
+      ////////////////////////////////
       //Call the "createGameScreen" method to build the navigation
       //panel in the main window:
-      //createGameScreen(pnlGameScreen);
+      createGameScreen(gameCards);
       
       //Add Game Screen panel to main window:      
       gbc.gridx = 0;
@@ -383,28 +392,56 @@ petList.addActionListener(this);*/
         //Create array of cards
         
         
-        ArrayList <ImageIcon> cardsList = new ArrayList();
-                    /*
+        ArrayList <Card> cardsList = new ArrayList();
+                   
+        //cboDifficulty.addActionListener(this);
+        String difficulty = (String) cboDifficulty.getSelectedItem();
         
-        if (cboDifficulty = Beginner){
-        place 3 cards and 1 copy of each card (total of 6 cards) on gamescreen
+        int gameDiff = 0;
+        
+        if(difficulty.equals("Beginner")){//Beginnner
+        /*place 3 cards and 1 copy of each card (total of 6 cards) on gamescreen*/
+            gameDiff = 3;
         }
-        else if(cboDifficulty = Easy){
-        place 6 cards and 1 copy of each card (total of 12 cards) on gamescreen 
+        else if(difficulty.equals("Easy")){//Easy
+        /*place 6 cards and 1 copy of each card (total of 12 cards) on gamescreen*/
+            gameDiff = 6;
         }
-                      int numcard = gameDiff
-                      
-                      loop(){
-                            arraylist.get(gameDiff, get first card)
-                            arraylist.set(numcard, arraylist.get) = copy card
-                            numcard++
-                        }
-                    */
+        
+        ImageIcon cardBackImage = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+            
+            
+            // Load random list of images to use
+            
+            for (int c = 0; c < gameDiff; c++) {
+                // Call database for pictures
+                // Query to pick "gamediff" number of images
+                 Card card = new Card();
+                 
+                 // Populate card with db results
+            }
+            
+
+            // Clone list of cards for game
+            for(int counter = 0; counter < gameDiff && counter < cardsList.size(); counter++){
+                // Pull out current card from the loop
+                Card orgCard = cardsList.get(counter);
+                orgCard.setbackImage(cardBackImage);
+                
+                // Make new card to populate (clone it)
+                  Card cloneCard =  new Card();
+                  cloneCard.setfrontImage(orgCard.getfrontImage());
+                  cloneCard.setbackImage(orgCard.getbackImage());
+                  
+                  cardsList.add(cloneCard);
+                  
+              }
+                    
         
         //use for loop to loop through array-list of cards
         shuffle(cardsList);
         //place cards in gridy, gridx
-        createGameScreen(pnlGameScreen, cardsList );
+        createGameScreen(cardsList);
    }
     /*
     public void showCard(){

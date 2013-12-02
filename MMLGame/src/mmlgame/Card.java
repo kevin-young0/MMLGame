@@ -14,11 +14,13 @@ import javax.swing.ImageIcon;
  * @author speterson86
  */
 public class Card {
-    boolean showing;//indicates if the card is flipped
-    boolean matched;//if two cards are matched, don't allow them to be flipped 
+    private boolean showing;//indicates if the card is flipped
+    private boolean matched;//if two cards are matched, don't allow them to be flipped 
     //back over until game reset
-    static ImageIcon backImage;//back of the card (replace with the card.png image later)
-    static ImageIcon frontImage;//front of the card (replace with images later)
+    private static ImageIcon backImage;//back of the card (replace with the card.png image later)
+    private static ImageIcon frontImage;//front of the card (replace with images later)
+    
+    private String caption; // Store image caption
     
     /*construtor*/
     public Card(ImageIcon theBack, ImageIcon theFront){
@@ -31,6 +33,30 @@ public class Card {
         showing = false;
         backImage = null;
         frontImage = null;
+    }
+    
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+    
+    public String getCaption() {
+        return caption;
+    }
+    
+    public void setShowing(boolean showing) {
+        this.showing = showing;
+    }
+    
+    public boolean isShowing() {
+        return showing;
+    }
+    
+    public void setMatched(boolean matched) {
+        this.matched = matched;
+    }
+    //with getters and setters, booleans are always "is", not get.
+    public boolean isMatched() {
+        return matched;
     }
     
    public void setbackImage(ImageIcon theBack)
