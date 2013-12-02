@@ -113,18 +113,19 @@ public class GameScreen extends JDialog implements ActionListener
       pnlNavigation.add(pnlSpacer, gbc);
       
       
-      /*
-JComboBox petList = new JComboBox(petStrings);
-petList.setSelectedIndex(4);
-petList.addActionListener(this);*/
+
       /*CBO DIFFICULTY HERE, GRIDY = 3*/
       //Create the Difficulty Combo Box, and add it to the navigation panel:
       String[] difficulty = {"Beginner", "Easy"};
-      cboDifficulty = new JComboBox();
+      cboDifficulty = new JComboBox(difficulty);
+      cboDifficulty.setSelectedIndex(0);//Beginner      
+      cboDifficulty.setSelectedIndex(1);//Easy
+      cboDifficulty.addActionListener(this);
+      
       cboDifficulty.setPreferredSize(new Dimension(150, 40));
       cboDifficulty.setMinimumSize(new Dimension(150, 40));
       
-      //Position and set the scaling properties for the Images ComboBox:
+      //Position and set the scaling properties for the Difficulty ComboBox:
       gbc = new GridBagConstraints();
       gbc.gridx = 0;
       gbc.gridy = 3;//set position for Images Combo Box in navigation panel
@@ -384,22 +385,28 @@ petList.addActionListener(this);*/
         
         
         ArrayList <ImageIcon> cardsList = new ArrayList();
-                    /*
+                   
+        //cboDifficulty.addActionListener(this);
+        String difficulty = (String) cboDifficulty.getSelectedItem();
         
-        if (cboDifficulty = Beginner){
-        place 3 cards and 1 copy of each card (total of 6 cards) on gamescreen
+        int gameDiff;
+        
+        if(difficulty.equals("Beginner")){//Beginnner
+        /*place 3 cards and 1 copy of each card (total of 6 cards) on gamescreen*/
+            gameDiff = 3;
         }
-        else if(cboDifficulty = Easy){
-        place 6 cards and 1 copy of each card (total of 12 cards) on gamescreen 
+        else if(difficulty.equals("Easy")){//Easy
+        /*place 6 cards and 1 copy of each card (total of 12 cards) on gamescreen*/
+            gameDiff = 6;
         }
-                      int numcard = gameDiff
-                      
-                      loop(){
-                            arraylist.get(gameDiff, get first card)
-                            arraylist.set(numcard, arraylist.get) = copy card
-                            numcard++
-                        }
-                    */
+            int numcard = gameDiff;
+
+            for(int counter = 0; counter < gameDiff; counter++){
+                  int cardsList.get(counter, new Card());//assign nmew card into position of ?
+                  arraylist.set(numcard, arraylist.get) = copy card
+                  numcard++;
+              }
+                    
         
         //use for loop to loop through array-list of cards
         shuffle(cardsList);
