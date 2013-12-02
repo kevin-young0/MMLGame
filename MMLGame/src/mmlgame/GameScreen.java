@@ -5,6 +5,8 @@ import java.util.Scanner;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +22,7 @@ import javax.swing.*;
  * with a JFrame object's content pane.
  */
 
-//public class GameScreen extends Card implements ActionListener
-public class GameScreen extends JDialog implements ActionListener
+public class GameScreen extends JDialog
 {
    private JButton btnNewGame;//Some button
    private JComboBox cboImages;//Images for game screen cards
@@ -120,7 +121,7 @@ public class GameScreen extends JDialog implements ActionListener
       cboDifficulty = new JComboBox(difficulty);
       cboDifficulty.setSelectedIndex(0);//Beginner      
       cboDifficulty.setSelectedIndex(1);//Easy
-      cboDifficulty.addActionListener(this);
+      //cboDifficulty.addActionListener(this);
       
       cboDifficulty.setPreferredSize(new Dimension(150, 40));
       cboDifficulty.setMinimumSize(new Dimension(150, 40));
@@ -152,7 +153,13 @@ public class GameScreen extends JDialog implements ActionListener
       btnNewGame.setPreferredSize(new Dimension(150, 40));
       btnNewGame.setMinimumSize(new Dimension(150, 40)); 
       
-      btnNewGame.addActionListener(this);
+      btnNewGame.addActionListener(new ActionListener() {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              btnNewGameActionPerformed(e);
+          }
+      });
       
       gbc.gridx = 0;
       gbc.gridy = 5;//set New Game button as 2nd component in navigation panel    
@@ -199,22 +206,55 @@ public class GameScreen extends JDialog implements ActionListener
              * "a" parameter is the integer on the back of each card;
              */
                 JPanel pnlCard = new JPanel();
+                pnlCard.setLayout(new GridBagLayout());
                 JLabel lblImage = new JLabel();        
-                lblImage.setPreferredSize(new Dimension(144,216));
-                lblImage.setMaximumSize(new Dimension(144,216));
+                //lblImage.setPreferredSize(new Dimension(144,216));
+                //lblImage.setMaximumSize(new Dimension(144,216));
                 if (cards.get(a).isShowing()) {
                     lblImage.setIcon(cards.get(a).getfrontImage());
                 } else {
                     lblImage.setIcon(cards.get(a).getbackImage());
+                    
                 }
-                pnlCard.add(lblImage);
+                lblImage.addComponentListener(new ComponentListener() {
+
+                    @Override
+                    public void componentResized(ComponentEvent e) {
+//                        JLabel lbl = ((JLabel) e.getSource());
+//                        ImageIcon imgIcon = (ImageIcon) lbl.getIcon();
+//                        Image dimg = imgIcon.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(),
+//                            Image.SCALE_SMOOTH);
+//                        lbl.setIcon(new ImageIcon(dimg));
+//                        lbl.revalidate();
+                    }
+
+                    @Override
+                    public void componentMoved(ComponentEvent e) {}
+
+                    @Override
+                    public void componentShown(ComponentEvent e) {}
+
+                    @Override
+                    public void componentHidden(ComponentEvent e) {}
+                });
+                
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridy = 0;
+                gbc.gridx = 0;           
+                gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+                //for the combobox if it needs to stretch when we start populating it.
+                gbc.weightx = 1;
+                gbc.weighty = 1;
+                
+                pnlCard.add(lblImage, gbc);
+                
                 pnlCard.setBackground(Color.RED);
                 //JFileChooser fc = new JFileChooser();
                 //File file = new File("../images/card.png");
                 
                 //ImageIcon imageView = cards[a];
                 //lblCard.setIcon(imageView);      
-                GridBagConstraints gbc = new GridBagConstraints();
+                gbc = new GridBagConstraints();
                 gbc.gridy = row;//row 1
                 gbc.gridx = col;//column 1           
                 gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
@@ -239,7 +279,7 @@ public class GameScreen extends JDialog implements ActionListener
       
       //http://stackoverflow.com/questions/14558959/adding-images-to-cells-in-a-gridlayout
       
-       pnlGameScreen.invalidate();
+       pnlGameScreen.revalidate();
        }//end of createGameScreen
    
    
@@ -385,7 +425,6 @@ public class GameScreen extends JDialog implements ActionListener
       
     }//end of initPanel()
 
-    
     public void btnNewGameActionPerformed(ActionEvent e) {
         System.out.println("Button Clicked");
         
@@ -395,7 +434,7 @@ public class GameScreen extends JDialog implements ActionListener
         ArrayList <Card> cardsList = new ArrayList();
                    
         //cboDifficulty.addActionListener(this);
-        String difficulty = (String) cboDifficulty.getSelectedItem();
+        String difficulty =  cboDifficulty.getSelectedItem().toString();
         
         int gameDiff = 0;
         
@@ -412,13 +451,33 @@ public class GameScreen extends JDialog implements ActionListener
             
             
             // Load random list of images to use
-            
+            int test = 1;
             for (int c = 0; c < gameDiff; c++) {
                 // Call database for pictures
                 // Query to pick "gamediff" number of images
                  Card card = new Card();
+                 card.setbackImage(cardBackImage);
+                 try {
+                     BufferedImage img = null;
+                     if (test == 1) {
+                             img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
+                             test = 2;
+                     }else if (test == 2) {
+                         img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
+                         test = 3;
+                     } else {
+                         img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
+                         test = 1;
+                     }
+                     Image dimg = img.getScaledInstance(144, 216,
+                            Image.SCALE_SMOOTH);
+                 card.setfrontImage(new ImageIcon(dimg));
+                 } catch (IOException ioe) {
+                     ioe.printStackTrace();
+                 }
                  
                  // Populate card with db results
+                 cardsList.add(card);
             }
             
 
@@ -426,7 +485,7 @@ public class GameScreen extends JDialog implements ActionListener
             for(int counter = 0; counter < gameDiff && counter < cardsList.size(); counter++){
                 // Pull out current card from the loop
                 Card orgCard = cardsList.get(counter);
-                orgCard.setbackImage(cardBackImage);
+                
                 
                 // Make new card to populate (clone it)
                   Card cloneCard =  new Card();
@@ -442,7 +501,7 @@ public class GameScreen extends JDialog implements ActionListener
         shuffle(cardsList);
         //place cards in gridy, gridx
         createGameScreen(cardsList);
-   }
+     }
     /*
     public void showCard(){
         if(showing){//if back of card is showing        
@@ -458,4 +517,6 @@ public class GameScreen extends JDialog implements ActionListener
         //pair of surrounding brackets within its concatination"[" "]" 
         }    
     }*/
+
+    
 }

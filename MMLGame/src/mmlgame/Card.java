@@ -17,8 +17,8 @@ public class Card {
     private boolean showing;//indicates if the card is flipped
     private boolean matched;//if two cards are matched, don't allow them to be flipped 
     //back over until game reset
-    private static ImageIcon backImage;//back of the card (replace with the card.png image later)
-    private static ImageIcon frontImage;//front of the card (replace with images later)
+    private ImageIcon backImage;//back of the card (replace with the card.png image later)
+    private ImageIcon frontImage;//front of the card (replace with images later)
     
     private String caption; // Store image caption
     
@@ -30,7 +30,7 @@ public class Card {
     }
     /*empty construtor (to create a fresh, unpopulated card object)*/
     public Card(){
-        showing = false;
+        showing = true;
         backImage = null;
         frontImage = null;
     }
