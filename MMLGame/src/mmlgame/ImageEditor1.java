@@ -39,7 +39,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     private JButton btnSave;
     private JButton btnExit;
     private JLabel lblImage;
-    private JLabel icon;
+    private JLabel lblIcon;
     private JLabel lblLogo;
 
     
@@ -72,13 +72,34 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     private void initPanel() {
         
         this.setLayout(new GridBagLayout());
+        this.setBackground(Color.GREEN);
         
         pnl1 = new JPanel();
         
         int gridx = 0;
         // Set pnl1 background color...
-        pnl1.setBackground(Color.GREEN);
+        pnl1.setBackground(this.getBackground());
         pnl1.setLayout(new GridBagLayout());
+        
+        // Spacer between cboSelectGroup and btnAddGroup:
+        // Get the same GREEN background as...
+        JPanel pnlSpacer = new JPanel();
+        pnlSpacer.setBackground(pnl1.getBackground());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = gridx++;
+        gbc.gridy = 0; // Set spacer above button in navigation panel...
+        
+        // BOTH instead of VERTICAL accomodates for the combo box if it needs to
+        //stretch when we start populating it...
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        // Takes up 10% of the width of the Navigation panel...
+        gbc.weightx = .5;
+        
+        // Up and down...
+        gbc.weighty = 0;
+        
+        pnl1.add(pnlSpacer, gbc);
         
         // Create the cboSelectGroup, and add it to the navigation panel:
         cboSelectGroup = new JComboBox();
@@ -92,7 +113,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         });
         
         // Set Select Group as component in navigation panel...
-        GridBagConstraints gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
         
         gbc.gridy = 0; // Up and down...
@@ -106,7 +127,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         
         // Spacer between cboSelectGroup and btnAddGroup:
         // Get the same GREEN background as...
-        JPanel pnlSpacer = new JPanel();
+        pnlSpacer = new JPanel();
         pnlSpacer.setBackground(pnl1.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
@@ -114,10 +135,10 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         
         // BOTH instead of VERTICAL accomodates for the combo box if it needs to
         //stretch when we start populating it...
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = GridBagConstraints.NONE;
         
         // Takes up 10% of the width of the Navigation panel...
-        gbc.weightx = .1;
+        gbc.weightx = 0;
         
         // Up and down...
         gbc.weighty = 0;
@@ -159,10 +180,10 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         
         // BOTH instead of VERTICAL accomodates for the combobox if it needs to
         //stretch when we start populating it...
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = GridBagConstraints.NONE;
         
         // Takes up 10% of the width of the Navigation panel...
-        gbc.weightx = .1;
+        gbc.weightx = 0;
         
         gbc.weighty = 0;
         pnl1.add(pnlSpacer, gbc);
@@ -190,16 +211,36 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weighty = 0;
         pnl1.add(btnExit, gbc);
         
+        // Spacer between cboSelectGroup and btnAddGroup:
+        // Get the same GREEN background as...
+        pnlSpacer = new JPanel();
+        pnlSpacer.setBackground(pnl1.getBackground());
+        gbc = new GridBagConstraints();
+        gbc.gridx = gridx++;
+        gbc.gridy = 0; // Set spacer above button in navigation panel...
+        
+        // BOTH instead of VERTICAL accomodates for the combo box if it needs to
+        //stretch when we start populating it...
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        // Takes up 10% of the width of the Navigation panel...
+        gbc.weightx = .5;
+        
+        // Up and down...
+        gbc.weighty = 0;
+        
+        pnl1.add(pnlSpacer, gbc);
+        
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         
-        // Don't allow button to resize...
+         // Don't allow button to resize...
         gbc.fill = GridBagConstraints.BOTH;
         
         // No weight setting for components (only spacers should have
         //weights)...
-        gbc.weightx = 0;
+        gbc.weightx = .1;
         gbc.weighty = 0;
         
         this.add(pnl1, gbc);
@@ -232,18 +273,24 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.BOTH;
         
         // Takes up 10% of the width of the Navigation panel...
-        gbc.weightx = .2;
+        gbc.weightx = .5;
         
         gbc.weighty = 0;
         
         pnl2.add(pnlSpacer, gbc);
         
-        // Add the lbl icon here:
-        icon = new JLabel();
+        // Add the icon here:
+        lblIcon = new JLabel();
        
-        icon.setBackground(Color.ORANGE);
-        icon.setPreferredSize(new Dimension(144, 216));        
-        icon.setMinimumSize(new Dimension(144, 216));
+        /*hint for refering/calling variables from another 
+        class (within the mmlgame package):
+        classname | variable
+        CropImage.icon;
+        
+        */
+        lblIcon.setBackground(Color.ORANGE);
+        lblIcon.setPreferredSize(new Dimension(144, 216));        
+        lblIcon.setMinimumSize(new Dimension(144, 216));
                 
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
@@ -256,26 +303,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         //weights)...
         gbc.weightx = 0;
         gbc.weighty = 0;
-        pnl2.add(icon, gbc);
-        
-        //lblImage (grid = 1)...
-        lblImage = new JLabel();
-        lblImage.setPreferredSize(new Dimension(150, 40));
-        lblImage.setMinimumSize(new Dimension(150, 40));
-        
-        gbc = new GridBagConstraints();
-        gbc.gridx = gridx++;
-                
-        gbc.gridy = 0;
-        
-        // Don't allow button to resize...
-        gbc.fill = GridBagConstraints.NONE;
-        
-        // No weight setting for components (only spacers should have
-        //weights)...
-        gbc.weightx = 0;
-        gbc.weighty = 0;
-        pnl2.add(lblImage, gbc);
+        pnl2.add(lblIcon, gbc);
                 
         // Spacer between imgImage and border (gridx = 3):
         // Get the same GREEN background as pnlNavigation...
@@ -292,25 +320,10 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.BOTH;
         
         // Takes up 10% of the width of the Navigation panel...
-        gbc.weightx = .2;
+        gbc.weightx = .5;
         
         gbc.weighty = 0;
         pnl2.add(pnlSpacer, gbc);
-        
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        
-        // Set spacer above button in navigation panel...
-        gbc.gridy = 0;
-        
-        // BOTH instead of VERTICAL accomodates for the combobox if it needs to
-        //stretch when we start populating it...
-        gbc.fill = GridBagConstraints.BOTH;
-        
-        // Takes up 10% of the width of the Navigation panel...
-        gbc.weightx = .2;
-        
-        gbc.weighty = 0;
         
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -338,8 +351,28 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         
         gridx = 0;
         
-        pnl3.setBackground(Color.YELLOW);        
-        //pnl3.setLayout(new GridBagLayout());
+        pnl3.setBackground(this.getBackground());        
+        pnl3.setLayout(new GridBagLayout());
+        
+        // Spacer between cboSelectGroup and btnAddGroup:
+        // Get the same GREEN background as...
+        pnlSpacer = new JPanel();
+        pnlSpacer.setBackground(pnl3.getBackground());
+        gbc = new GridBagConstraints();
+        gbc.gridx = gridx++;
+        gbc.gridy = 0; // Set spacer above button in navigation panel...
+        
+        // BOTH instead of VERTICAL accomodates for the combo box if it needs to
+        //stretch when we start populating it...
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        // Takes up 10% of the width of the Navigation panel...
+        gbc.weightx = .5;
+        
+        // Up and down...
+        gbc.weighty = 0;
+        
+        pnl3.add(pnlSpacer, gbc);
         
         //Create the btnUpload button, and add it to the navigation panel:
         btnUpload = new JButton("Upload");
@@ -376,10 +409,10 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         
         // BOTH instead of VERTICAL accomodates for the combobox if it needs to
         //stretch when we start populating it...
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = GridBagConstraints.NONE;
         
         // Takes up 10% of the width of the Navigation panel...
-        gbc.weightx = .1;
+        gbc.weightx = 0;
         
         gbc.weighty = 0;
         pnl3.add(pnlSpacer, gbc);
@@ -399,7 +432,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         // Don't allow button to resize...
         gbc.fill = GridBagConstraints.NONE;
         
-        gbc.weightx = .8;
+        gbc.weightx = 0;
         gbc.weighty = 0;      
         pnl3.add(txtCaption, gbc);
         
@@ -414,10 +447,10 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         
         // BOTH instead of VERTICAL accomodates for the combobox if it needs to
         //stretch when we start populating it...
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = GridBagConstraints.NONE;
         
         // Takes up 10% of the width of the Navigation panel...
-        gbc.weightx = .1;
+        gbc.weightx = 0;
         
         gbc.weighty = 0;
         pnl3.add(pnlSpacer, gbc);
@@ -445,6 +478,26 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weighty = 0;      
         pnl3.add(btnSave, gbc);
         
+        // Spacer between cboSelectGroup and btnAddGroup:
+        // Get the same GREEN background as...
+        pnlSpacer = new JPanel();
+        pnlSpacer.setBackground(pnl3.getBackground());
+        gbc = new GridBagConstraints();
+        gbc.gridx = gridx++;
+        gbc.gridy = 0; // Set spacer above button in navigation panel...
+        
+        // BOTH instead of VERTICAL accomodates for the combo box if it needs to
+        //stretch when we start populating it...
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        // Takes up 10% of the width of the Navigation panel...
+        gbc.weightx = .5;
+        
+        // Up and down...
+        gbc.weighty = 0;
+        
+        pnl3.add(pnlSpacer, gbc);
+        
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         
@@ -461,6 +514,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weighty = 0; 
         
         this.add(pnl3, gbc);
+        
         /*End of Row3 Panel*/
 
         //lblLogo.setBackground(java.awt.SystemColor.window);
@@ -498,7 +552,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
             String filename = selectedFile.getPath();
             JOptionPane.showMessageDialog(null, "You selected " + filename);
             ImageIcon imageView = new ImageIcon(filename);
-            icon.setIcon(imageView);
+            lblIcon.setIcon(imageView);
                        
         }
     
