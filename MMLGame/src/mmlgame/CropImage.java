@@ -8,7 +8,7 @@
  *
  *Read more:
  *http://mrbool.com/how-to-crop-an-image-using-java/25272#ixzz2lh5q49fW
- */
+ 
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -109,3 +109,4 @@ public class CropImage extends JFrame implements MouseListener, MouseMotionListe
         g.drawRect(c1, c2, w, h);
     }
 }
+*/

@@ -13,9 +13,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import javax.swing.ImageIcon;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -25,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -34,6 +38,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     
     private JButton btnUpload;
     private JTextField txtCaption;
+    private JLabel lblCaption;
     private JComboBox cboSelectGroup;
     private JButton btnAddGroup;
     private JButton btnSave;
@@ -286,14 +291,14 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         class (within the mmlgame package):
         classname | variable
         CropImage.icon;
-        
         */
+        
         lblIcon.setBackground(Color.ORANGE);
         lblIcon.setPreferredSize(new Dimension(144, 216));        
         lblIcon.setMinimumSize(new Dimension(144, 216));
                 
         gbc = new GridBagConstraints();
-        gbc.gridx = gridx++;
+        gbc.gridx = gridx;
         gbc.gridy = 0;
         
         // Don't allow button to resize...
@@ -304,6 +309,37 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weightx = 0;
         gbc.weighty = 0;
         pnl2.add(lblIcon, gbc);
+
+
+
+
+        
+                // Caption Label...
+                lblCaption = new JLabel();
+
+                lblCaption.setBackground(Color.WHITE);
+                lblCaption.setOpaque(true);
+                lblCaption.setPreferredSize(new Dimension(144, 40));        
+                lblCaption.setMinimumSize(new Dimension(144, 40));
+                lblCaption.setHorizontalAlignment(SwingConstants.CENTER);
+
+                gbc = new GridBagConstraints();
+                gbc.gridx = gridx++;
+                gbc.gridy = 1;
+
+                // Don't allow button to resize...
+                gbc.fill = GridBagConstraints.NONE;
+
+                // No weight setting for components (only spacers should have
+                //weights)...
+                gbc.weightx = 0;
+                gbc.weighty = 0;
+                
+                pnl2.add(lblCaption, gbc);
+
+
+
+        
                 
         // Spacer between imgImage and border (gridx = 3):
         // Get the same GREEN background as pnlNavigation...
@@ -422,6 +458,30 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         txtCaption.setPreferredSize(new Dimension(150, 40));
         txtCaption.setMinimumSize(new Dimension(75, 40)); 
         txtCaption.addActionListener(this);
+        txtCaption.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                lblCaption.setText(((JTextField)e.getSource()).getText());
+            }
+        });
+        
+        txtCaption.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                ((JTextField) e.getSource()).selectAll();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {}
+        });
         
         gbc = new GridBagConstraints();
         // Set txtCaption as component in pnl3:
@@ -524,19 +584,23 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        // To change body of generated methods, choose Tools | Templates...
-        throw new UnsupportedOperationException("Not supported yet.");
+        btnSaveActionPerformed(e);
         
     } // End actionPerformed(ActionEvent e)...
 
+    // Combobox...
     private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {                                          
 
     }
     
+    // Exit screen...
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {                                           
             this.setVisible(false);
             
+    }
+    
+    private void btnAddGroupActionPerformed(java.awt.event.ActionEvent evt) {
+        
     }
 
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -558,8 +622,11 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     
     }
     
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {                                           
-            
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
+        
+        ImageIcon sveImage = (ImageIcon) lblIcon.getIcon();
+        String sveCaption = lblCaption.getText();
+        
     }
     
 } // End ImageEditor1 extends JDialog implements ActionListener...
