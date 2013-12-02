@@ -385,8 +385,8 @@ public class GameScreen extends JDialog implements ActionListener
       
     }//end of initPanel()
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    
+    public void btnNewGameActionPerformed(ActionEvent e) {
         System.out.println("Button Clicked");
         
         //Create array of cards
