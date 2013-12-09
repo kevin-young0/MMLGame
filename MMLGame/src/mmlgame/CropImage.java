@@ -108,5 +108,5 @@ public class CropImage extends JFrame implements MouseListener, MouseMotionListe
         }
         g.drawRect(c1, c2, w, h);
     }
-}
-*/
+}*/
+

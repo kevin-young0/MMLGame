@@ -5,10 +5,15 @@ import java.util.Scanner;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -20,17 +25,19 @@ import javax.swing.*;
  * with a JFrame object's content pane.
  */
 
-//public class GameScreen extends Card implements ActionListener
-public class GameScreen extends JDialog implements ActionListener
+public class GameScreen extends JDialog
 {
    private JButton btnNewGame;//Some button
    private JComboBox cboImages;//Images for game screen cards
    private JComboBox cboDifficulty;
    private final int WINDOW_WIDTH = 650;//default window width
    private final int WINDOW_HEIGHT = 498;//default window height
-   private Card [][] board;//two dimensional array of card objects
+   //private Card [][] board;//two dimensional array of card objects
    private Random r;//declare field for a random object
    private JPanel pnlGameScreen;
+   private HashMap<JPanel, Card> cardsMap;
+   private JPanel firstCardClicked;
+   
 
    //Start of Constructor
    public GameScreen(JFrame owner)
@@ -50,7 +57,7 @@ public class GameScreen extends JDialog implements ActionListener
         //printCells();//repopulate each cell with it's randomly chosen new card object 
         //playGame();
       // r = new Random();//initialize the random object field
-      
+      firstCardClicked = null;
       initPanel();
         
       pack();
@@ -120,7 +127,7 @@ public class GameScreen extends JDialog implements ActionListener
       cboDifficulty = new JComboBox(difficulty);
       cboDifficulty.setSelectedIndex(0);//Beginner      
       cboDifficulty.setSelectedIndex(1);//Easy
-      cboDifficulty.addActionListener(this);
+      //cboDifficulty.addActionListener(this);
       
       cboDifficulty.setPreferredSize(new Dimension(150, 40));
       cboDifficulty.setMinimumSize(new Dimension(150, 40));
@@ -152,7 +159,13 @@ public class GameScreen extends JDialog implements ActionListener
       btnNewGame.setPreferredSize(new Dimension(150, 40));
       btnNewGame.setMinimumSize(new Dimension(150, 40)); 
       
-      btnNewGame.addActionListener(this);
+      btnNewGame.addActionListener(new ActionListener() {
+
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              btnNewGameActionPerformed(e);
+          }
+      });
       
       gbc.gridx = 0;
       gbc.gridy = 5;//set New Game button as 2nd component in navigation panel    
@@ -192,29 +205,99 @@ public class GameScreen extends JDialog implements ActionListener
       for(int row = 0; row < rows; row++){
             
             for(int col = 0; col < cols; col++){              
-            
+            Card card = cards.get(a);
+            if (cardsMap == null) {
+                cardsMap = new HashMap<>();
+            }
             /*
              * "board[row][col]" is a single cell in the two dimensional array;
              * "words[a]" parameter is the word on the front (face) of each card;
              * "a" parameter is the integer on the back of each card;
              */
                 JPanel pnlCard = new JPanel();
+                // Save card relation to JPanel
+                cardsMap.put(pnlCard, card);//save pnlCard object is the key to retieve the 'card' object
+                //mouse listener:
+                pnlCard.addMouseListener(new MouseListener() {
+
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        flipCardEvent(e);
+                    }
+
+                    //show hidden card face on hover in Beginner difficulty:
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        
+                    }
+
+                    //un-show hidden card face on mouse move away in Beginner difficulty:
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        
+                    }
+
+                    
+                });
+                
+                pnlCard.setLayout(new GridBagLayout());
                 JLabel lblImage = new JLabel();        
-                lblImage.setPreferredSize(new Dimension(144,216));
-                lblImage.setMaximumSize(new Dimension(144,216));
-                if (cards.get(a).isShowing()) {
-                    lblImage.setIcon(cards.get(a).getfrontImage());
+                                
+                if (card.isShowing()) {
+                    lblImage.setIcon(card.getfrontImage());
                 } else {
-                    lblImage.setIcon(cards.get(a).getbackImage());
+                    lblImage.setIcon(card.getbackImage());
+                    
                 }
-                pnlCard.add(lblImage);
+                lblImage.addComponentListener(new ComponentListener() {
+
+                    @Override
+                    public void componentResized(ComponentEvent e) {
+//                        JLabel lbl = ((JLabel) e.getSource());
+//                        ImageIcon imgIcon = (ImageIcon) lbl.getIcon();
+//                        Image dimg = imgIcon.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(),
+//                            Image.SCALE_SMOOTH);
+//                        lbl.setIcon(new ImageIcon(dimg));
+//                        lbl.revalidate();
+                    }
+
+                    @Override
+                    public void componentMoved(ComponentEvent e) {}
+
+                    @Override
+                    public void componentShown(ComponentEvent e) {}
+
+                    @Override
+                    public void componentHidden(ComponentEvent e) {}
+                });
+                
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridy = 0;
+                gbc.gridx = 0;           
+                gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
+                //for the combobox if it needs to stretch when we start populating it.
+                gbc.weightx = 1;
+                gbc.weighty = 1;
+                
+                pnlCard.add(lblImage, gbc);
+                
                 pnlCard.setBackground(Color.RED);
                 //JFileChooser fc = new JFileChooser();
                 //File file = new File("../images/card.png");
                 
                 //ImageIcon imageView = cards[a];
                 //lblCard.setIcon(imageView);      
-                GridBagConstraints gbc = new GridBagConstraints();
+                gbc = new GridBagConstraints();
                 gbc.gridy = row;//row 1
                 gbc.gridx = col;//column 1           
                 gbc.fill = GridBagConstraints.BOTH;//BOTH instead of VERTICAL accomodates
@@ -239,7 +322,7 @@ public class GameScreen extends JDialog implements ActionListener
       
       //http://stackoverflow.com/questions/14558959/adding-images-to-cells-in-a-gridlayout
       
-       pnlGameScreen.invalidate();
+       pnlGameScreen.revalidate();
        }//end of createGameScreen
    
    
@@ -385,8 +468,7 @@ public class GameScreen extends JDialog implements ActionListener
       
     }//end of initPanel()
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void btnNewGameActionPerformed(ActionEvent e) {
         System.out.println("Button Clicked");
         
         //Create array of cards
@@ -395,9 +477,9 @@ public class GameScreen extends JDialog implements ActionListener
         ArrayList <Card> cardsList = new ArrayList();
                    
         //cboDifficulty.addActionListener(this);
-        String difficulty = (String) cboDifficulty.getSelectedItem();
+        String difficulty =  cboDifficulty.getSelectedItem().toString();
         
-        int gameDiff = 0;
+        int gameDiff = 0;//initialize gameDiff to 0
         
         if(difficulty.equals("Beginner")){//Beginnner
         /*place 3 cards and 1 copy of each card (total of 6 cards) on gamescreen*/
@@ -412,13 +494,33 @@ public class GameScreen extends JDialog implements ActionListener
             
             
             // Load random list of images to use
-            
-            for (int c = 0; c < gameDiff; c++) {
+            int test = 1;
+            for (int c = 0; c < gameDiff; c++) {//WHAT IS "c"?
                 // Call database for pictures
                 // Query to pick "gamediff" number of images
                  Card card = new Card();
+                 card.setbackImage(cardBackImage);
+                 try {
+                     BufferedImage img = null;
+                     if (test == 1) {
+                             img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
+                             test = 2;
+                     }else if (test == 2) {
+                         img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
+                         test = 3;
+                     } else {
+                         img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
+                         test = 1;
+                     }
+                     Image dimg = img.getScaledInstance(144, 216,
+                            Image.SCALE_SMOOTH);
+                 card.setfrontImage(new ImageIcon(dimg));
+                 } catch (IOException ioe) {
+                     ioe.printStackTrace();
+                 }
                  
                  // Populate card with db results
+                 cardsList.add(card);
             }
             
 
@@ -426,7 +528,7 @@ public class GameScreen extends JDialog implements ActionListener
             for(int counter = 0; counter < gameDiff && counter < cardsList.size(); counter++){
                 // Pull out current card from the loop
                 Card orgCard = cardsList.get(counter);
-                orgCard.setbackImage(cardBackImage);
+                
                 
                 // Make new card to populate (clone it)
                   Card cloneCard =  new Card();
@@ -435,27 +537,80 @@ public class GameScreen extends JDialog implements ActionListener
                   
                   cardsList.add(cloneCard);
                   
-              }
-                    
+              }                   
         
         //use for loop to loop through array-list of cards
-        shuffle(cardsList);
+        //shuffle(cardsList);
         //place cards in gridy, gridx
         createGameScreen(cardsList);
-   }
-    /*
-    public void showCard(){
-        if(showing){//if back of card is showing        
-            System.out.print(String.format("%10s"));
-        //String.format = is a way to cause a string to be placed within a 
-        //specified number of cells (or spaces). In this case, the string is
-        //placed right-justified in a column of 10 spaces. The "s" in "%10s" 
-        //indicates that it's a string.
-        }    
-        else{//if front of card is showing
-            System.out.print(String.format("%10s","[" + front + "]"));
-        //turn the integer in the front variable into a string by adding a 
-        //pair of surrounding brackets within its concatination"[" "]" 
-        }    
-    }*/
+     }     
+   
+    //if the card is not showing:
+    //card.setbackImage(cardBackImage);
+    
+    //else if the card is showing:
+    //card.setfrontImage(new ImageIcon(dimg));
+    
+private void flipCardEvent(MouseEvent e) {
+
+    JPanel pnlClicked = (JPanel)e.getSource();
+    Card cardToCheck = cardsMap.get(pnlClicked);
+    
+    JLabel icon = (JLabel) pnlClicked.getComponent(0);
+    
+    // Toggle showing status
+    cardToCheck.setShowing(!cardToCheck.isShowing());
+    
+    // Compare to previous card, if any
+    if (firstCardClicked == null) {
+        // No card currently showing
+        firstCardClicked = pnlClicked;
+    } else {
+        // A card is already showing on the screen
+        if (firstCardClicked == pnlClicked) {
+            // Clicked same card
+            firstCardClicked = null;
+        } else {
+            Card previousCard = cardsMap.get(firstCardClicked);
+            
+            if (previousCard.getfrontImage() == cardToCheck.getfrontImage()) {
+                // Clicked match
+                // Do Stuff
+                cardToCheck.setMatched(true);
+                previousCard.setMatched(true);
+
+                firstCardClicked = null;
+            } else {
+                // Clicked a non-match
+                
+                // Show front image for a few seconds
+                icon.setIcon(cardToCheck.getfrontImage());
+                
+                // Flip cards back down by settting 'showing' to false
+                previousCard.setShowing(false);
+                cardToCheck.setShowing(false);
+                
+                
+                // Reset pervious card to back image
+                JLabel previousIcon = (JLabel) firstCardClicked.getComponent(0);
+                previousIcon.setIcon(previousCard.getbackImage());
+                
+                // Put timer to delay flip here
+                
+                //Reset firstCardClicked
+                firstCardClicked = null;
+                return;
+            }
+        }
+    }
+    
+    // Flip the Card image for the card clicked
+    if (cardToCheck.isShowing()) {
+        icon.setIcon(cardToCheck.getfrontImage());
+    } else {
+        icon.setIcon(cardToCheck.getbackImage());
+    }
 }
+      
+      
+}//end of GameScreen class

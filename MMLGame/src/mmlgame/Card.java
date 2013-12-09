@@ -17,8 +17,8 @@ public class Card {
     private boolean showing;//indicates if the card is flipped
     private boolean matched;//if two cards are matched, don't allow them to be flipped 
     //back over until game reset
-    private static ImageIcon backImage;//back of the card (replace with the card.png image later)
-    private static ImageIcon frontImage;//front of the card (replace with images later)
+    private ImageIcon backImage;//back of the card (replace with the card.png image later)
+    private ImageIcon frontImage;//front of the card (replace with images later)
     
     private String caption; // Store image caption
     
@@ -78,16 +78,10 @@ public class Card {
       return frontImage;
    }
     
-//    public void setShowingStatus(){//whether or not the card has been flipped yet.
-//        if(showing){
-//            showing = false;//when the card is still face down and has not been
-//            //clicked on (flipped) yet.
-//        }            
-//        else{
-//            showing = true;//show the hidden word on the facing-down-front-side
-//            //of the card when the player clicks on the card (flips it).
-//        }
-//    }
+   //Flip the card:
+   public void setShowingStatus(){//flip the card
+       showing = !showing;
+   }
 
 
 }//end of Card.java class
