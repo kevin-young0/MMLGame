@@ -39,7 +39,7 @@ public class MMLGame extends javax.swing.JFrame {
         setLocationByPlatform(true);
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        lblLogo.setText("jLabel1");
+        lblLogo.setName(""); // NOI18N
 
         btnStartGame.setText("Start Game");
         btnStartGame.addActionListener(new java.awt.event.ActionListener() {
