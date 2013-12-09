@@ -558,6 +558,10 @@ private void flipCardEvent(MouseEvent e) {
     
     JLabel icon = (JLabel) pnlClicked.getComponent(0);
     
+    if(cardToCheck.isMatched()){
+        return;
+    }
+    
     // Toggle showing status
     cardToCheck.setShowing(!cardToCheck.isShowing());
     
@@ -573,7 +577,7 @@ private void flipCardEvent(MouseEvent e) {
         } else {
             Card previousCard = cardsMap.get(firstCardClicked);
             
-            if (previousCard.getfrontImage() == cardToCheck.getfrontImage()) {
+            if (previousCard.getfrontImage() == cardToCheck.getfrontImage()) {//what happened here again?
                 // Clicked match
                 // Do Stuff
                 cardToCheck.setMatched(true);
@@ -594,6 +598,9 @@ private void flipCardEvent(MouseEvent e) {
                 // Reset pervious card to back image
                 JLabel previousIcon = (JLabel) firstCardClicked.getComponent(0);
                 previousIcon.setIcon(previousCard.getbackImage());
+                
+                //card to check
+                icon.setIcon(cardToCheck.getbackImage());
                 
                 // Put timer to delay flip here
                 
