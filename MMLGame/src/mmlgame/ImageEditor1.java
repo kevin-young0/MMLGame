@@ -12,6 +12,7 @@ package mmlgame;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -33,6 +34,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -82,7 +85,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     private void initPanel() {
 
         this.setLayout(new GridBagLayout());
-        this.setBackground(Color.BLUE);
+        this.setBackground(Color.GREEN);
 
         pnl1 = new JPanel();
 
@@ -117,9 +120,13 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         cboSelectGroup.setMinimumSize(new Dimension(150, 40));
 
         cboSelectGroup.addActionListener(new java.awt.event.ActionListener() {
+            
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            
                 btnImagesActionPerformed(evt);
+
             }
+            
         });
 
         // Set Select Group as component in navigation panel...
@@ -156,14 +163,18 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnl1.add(pnlSpacer, gbc);
 
         // Create the AddGroup button, and add it to the navigation panel:        
-        btnAddGroup = new JButton("Add Group");
+        btnAddGroup = new JButton("Add Category");
         btnAddGroup.setPreferredSize(new Dimension(150, 40));
         btnAddGroup.setMinimumSize(new Dimension(150, 40));
 
         btnAddGroup.addActionListener(new java.awt.event.ActionListener() {
+            
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
                 btnAddGroupActionPerformed(evt);
+                
             }
+            
         });
         
         // Set Add Group as component in navigation panel...
@@ -205,11 +216,15 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         //Create the btnExit button, and add it to the navigation panel:
         btnExit = new JButton("Exit");
         btnExit.setPreferredSize(new Dimension(150, 40));
-        btnExit.setMinimumSize(new Dimension(150, 40));        
+        btnExit.setMinimumSize(new Dimension(150, 40));
         btnExit.addActionListener(new java.awt.event.ActionListener() {
+            
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
                 btnExitActionPerformed(evt);
+                
             }
+            
         });
 
         gbc = new GridBagConstraints();
@@ -249,7 +264,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-         // Don't allow button to resize...
+        // Don't allow button to resize...
         gbc.fill = GridBagConstraints.BOTH;
 
         // No weight setting for components (only spacers should have
@@ -268,7 +283,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gridx = 0;
 
         // Set pnl2 background color and layout...
-        pnl2.setBackground(Color.GRAY);
+        pnl2.setBackground(Color.RED);
         pnl2.setLayout(new GridBagLayout());
 
         // Spacer between border and imgImage (gridx = 0):
@@ -320,6 +335,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         // Caption Label...
         lblCaption = new JLabel();
+        lblCaption.setFont(new Font("Algerian", Font.BOLD, 12));
 
         lblCaption.setBackground(Color.WHITE);
         lblCaption.setOpaque(true);
@@ -414,9 +430,13 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         btnUpload.setPreferredSize(new Dimension(150, 40));
         btnUpload.setMinimumSize(btnUpload.getPreferredSize()); 
         btnUpload.addActionListener(new java.awt.event.ActionListener() {
+            
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
                 btnUploadActionPerformed(evt);
+                
             }
+            
         });
 
         // Set Upload as component in navigation panel...
@@ -467,19 +487,25 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
             @Override
             public void keyReleased(KeyEvent e) {
+                
                 lblCaption.setText(((JTextField)e.getSource()).getText());
+            
             }
+        
         });
 
         txtCaption.addFocusListener(new FocusListener() {
 
             @Override
             public void focusGained(FocusEvent e) {
+                
                 ((JTextField) e.getSource()).selectAll();
+                
             }
 
             @Override
             public void focusLost(FocusEvent e) {}
+            
         });
 
         gbc = new GridBagConstraints();
@@ -519,9 +545,13 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         btnSave.setPreferredSize(new Dimension(150, 40));
         btnSave.setMinimumSize(new Dimension(75, 40)); 
         btnSave.addActionListener(new java.awt.event.ActionListener() {
+            
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                
                 btnSaveActionPerformed(evt);
+            
             }
+        
         });
 
         gbc = new GridBagConstraints();
@@ -581,17 +611,19 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
    // @Override
    public void actionPerformed(ActionEvent e) {
+       
    //     btnSaveActionPerformed(e);
 
    } // End actionPerformed(ActionEvent e)...
 
     // Combobox...
-    private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {
 
     }
 
     // Exit screen...
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {
+        
             this.setVisible(false);
 
     }
@@ -599,36 +631,66 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     private void btnAddGroupActionPerformed(java.awt.event.ActionEvent evt) {
         
-        // Message = new String(""); // Identical operations...        
-        String message = "";
-        
+       
         // Get a guess from the user...
         String strCat = JOptionPane.showInputDialog("Please enter a new folder/category name: ");
-        System.out.println(message);
+        
+        //Validate (cant save same category names)...
+        
+        
+        System.out.println(strCat);
         
         // Needs to generate new table in DB so combobox displays new
         //folder/category...
-        final String DB_URL = ("jdbc:sqlite:localEntry.sqlite");
-        
+        final String DB_URL = ("jdbc:sqlite:ImageEditTable.sqlite");
+        Connection conn = null;
         try {
             
             // Create a connection to the dattabase...
-            Connection conn = DriverManager.getConnection(DB_URL);
+            Class.forName("org.sqlite.JDBC");
+            conn = DriverManager.getConnection(DB_URL);
             
-            String[] columnNames = {"Image", "Caption"
-            };
+            Statement stmt = null;
+            String sql = "INSERT INTO ImageTble VALUES ('"+strCat+"')";
             
-////////////JTable table = newJTable(data, columnNames);/////////////////////////////////////////////////
+            //
             
-        }
-        catch(Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
+            try {
+                stmt = conn.createStatement();
+                if (stmt.executeUpdate(sql)!=1) {
+                    // Something wrong with INSERT statement...
+                     System.out.println("This is wrong somehow: >>" + sql + "<<");
+                }
+               stmt.close();
+            } catch (SQLException e ) {
+                System.out.println("Error: " + e.getMessage());
+            } finally {
+                if (stmt != null) { stmt.close(); }
+            }
+            
+            conn.close();
+            conn = null;
+///////////////////////////JTable table = newJTable(data, columnNames);//////////////////////////////////
+            
         }
         
+        catch(Exception ex) {
+            
+            System.out.println("Error: " + ex.getMessage());
+
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                    conn = null;
+                } catch (SQLException ex) {}
+            }
+        }
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {
+        
         //Create a file chooser...
         JFileChooser fc = new JFileChooser();
 
@@ -656,8 +718,8 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         String sveCaption = lblCaption.getText();
         
         // Save dialog...
-        JOptionPane.showMessageDialog(null, "Folder/Categerory/Image has been saved!!!");
+        JOptionPane.showMessageDialog(null, "Folder/Category/Image has been saved!!!");
         
-    }
+    } // End BtnSave...
     
 } // End ImageEditor1 extends JDialog implements ActionListener...
