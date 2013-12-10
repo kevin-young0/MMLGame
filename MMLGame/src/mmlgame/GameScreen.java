@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.*;
+import mmlgame.ActionListeners.TimerAction;
 
 /**
  * This class demonstrates how to use a FlowLayout manager
@@ -446,7 +447,9 @@ public class GameScreen extends JDialog
       ///////////////////////////////
       ArrayList <Card> gameCards = new ArrayList();
       // Test Cards
+
       ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+
       for (int numCards = 0; numCards < 6; numCards++) {
         Card gameCard = new Card();
         gameCard.setbackImage(cardBackImage);
@@ -490,7 +493,9 @@ public class GameScreen extends JDialog
             gameDiff = 6;
         }
         
+
         ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+
             
             
             // Load random list of images to use
@@ -503,6 +508,7 @@ public class GameScreen extends JDialog
                  try {
                      BufferedImage img = null;
                      if (test == 1) {
+
                              img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
                              test = 2;
                      }else if (test == 2) {
@@ -510,6 +516,7 @@ public class GameScreen extends JDialog
                          test = 3;
                      } else {
                          img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
+
                          test = 1;
                      }
                      Image dimg = img.getScaledInstance(144, 216,
@@ -540,7 +547,7 @@ public class GameScreen extends JDialog
               }                   
         
         //use for loop to loop through array-list of cards
-        //shuffle(cardsList);
+        shuffle(cardsList);
         //place cards in gridy, gridx
         createGameScreen(cardsList);
      }     
@@ -557,6 +564,10 @@ private void flipCardEvent(MouseEvent e) {
     Card cardToCheck = cardsMap.get(pnlClicked);
     
     JLabel icon = (JLabel) pnlClicked.getComponent(0);
+    
+    if(cardToCheck.isMatched()){
+        return;
+    }
     
     // Toggle showing status
     cardToCheck.setShowing(!cardToCheck.isShowing());
@@ -582,18 +593,26 @@ private void flipCardEvent(MouseEvent e) {
                 firstCardClicked = null;
             } else {
                 // Clicked a non-match
-                
-                // Show front image for a few seconds
                 icon.setIcon(cardToCheck.getfrontImage());
                 
-                // Flip cards back down by settting 'showing' to false
+                // Show front image for a few seconds
+//                try {
+//                  icon.setIcon(cardToCheck.getfrontImage());
+//                  Thread.sleep(1000);
+//                  
+//                } 
+//                catch(InterruptedException ex) {
+//                  Thread.currentThread().interrupt();
+//                }
+                JLabel previousIcon = (JLabel) firstCardClicked.getComponent(0);
                 previousCard.setShowing(false);
                 cardToCheck.setShowing(false);
                 
+                TimerAction ta = new TimerAction( previousCard, cardToCheck, icon, previousIcon);
+                Timer t = new Timer(1000, ta);
+                t.setRepeats(false);
+                t.start();
                 
-                // Reset pervious card to back image
-                JLabel previousIcon = (JLabel) firstCardClicked.getComponent(0);
-                previousIcon.setIcon(previousCard.getbackImage());
                 
                 // Put timer to delay flip here
                 
