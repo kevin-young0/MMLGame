@@ -455,7 +455,13 @@ public class GameScreen extends JDialog
       ///////////////////////////////
       ArrayList <Card> gameCards = new ArrayList();
       // Test Cards
+<<<<<<< HEAD
       ImageIcon cardBackImage = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+=======
+
+      ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+
+>>>>>>> 9ca8d77541f21fea935ce8923d7a1fc65a4160e3
       for (int numCards = 0; numCards < 6; numCards++) {
         Card gameCard = new Card();
         gameCard.setbackImage(cardBackImage);
@@ -499,7 +505,13 @@ public class GameScreen extends JDialog
             gameDiff = 6;
         }
         
+<<<<<<< HEAD
         ImageIcon cardBackImage = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+=======
+
+        ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+
+>>>>>>> 9ca8d77541f21fea935ce8923d7a1fc65a4160e3
             
             
             // Load random list of images to use
@@ -512,6 +524,7 @@ public class GameScreen extends JDialog
                  try {
                      BufferedImage img = null;
                      if (test == 1) {
+<<<<<<< HEAD
                              img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
                              test = 2;
                      }else if (test == 2) {
@@ -519,6 +532,17 @@ public class GameScreen extends JDialog
                          test = 3;
                      } else {
                          img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
+=======
+
+                             img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
+                             test = 2;
+                     }else if (test == 2) {
+                         img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
+                         test = 3;
+                     } else {
+                         img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
+
+>>>>>>> 9ca8d77541f21fea935ce8923d7a1fc65a4160e3
                          test = 1;
                      }
                      Image dimg = img.getScaledInstance(144, 216,
@@ -637,6 +661,5 @@ private void flipCardEvent(MouseEvent e) {
         JOptionPane.showMessageDialog (null, "Congradulations, you got them all right!");
     }
 }
-      
-      
-}//end of GameScreen class
+
+} // End of GameScreen class..
