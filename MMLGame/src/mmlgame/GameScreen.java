@@ -38,6 +38,8 @@ public class GameScreen extends JDialog
    private JPanel pnlGameScreen;
    private HashMap<JPanel, Card> cardsMap;
    private JPanel firstCardClicked;
+   private int allMatch;
+   private int gameDiff;
    
 
    //Start of Constructor
@@ -47,6 +49,11 @@ public class GameScreen extends JDialog
        setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));//don't allow
       //main window to scale any smaller than the default height and width
        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+       
+       //Set the GameScreen to open to full screen at default:
+       this.setUndecorated(false);//remove borders if true
+       this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
+       setPreferredSize(new Dimension(this.getBounds().width,this.getBounds().height));       
        setLocationRelativeTo(owner);
        
        
@@ -192,6 +199,7 @@ public class GameScreen extends JDialog
    private void createGameScreen(ArrayList <Card> cards) {
       pnlGameScreen.removeAll();
       pnlGameScreen.setBackground(Color.CYAN);
+      allMatch = 0;
       
       //Add a GridBagLayout manager to the Game Screen Panel:      
       pnlGameScreen.setLayout(new GridBagLayout());
@@ -447,7 +455,7 @@ public class GameScreen extends JDialog
       ///////////////////////////////
       ArrayList <Card> gameCards = new ArrayList();
       // Test Cards
-      ImageIcon cardBackImage = new ImageIcon("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+      ImageIcon cardBackImage = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
       for (int numCards = 0; numCards < 6; numCards++) {
         Card gameCard = new Card();
         gameCard.setbackImage(cardBackImage);
@@ -480,7 +488,7 @@ public class GameScreen extends JDialog
         //cboDifficulty.addActionListener(this);
         String difficulty =  cboDifficulty.getSelectedItem().toString();
         
-        int gameDiff = 0;//initialize gameDiff to 0
+            gameDiff = 0;//initialize gameDiff to 0
         
         if(difficulty.equals("Beginner")){//Beginnner
         /*place 3 cards and 1 copy of each card (total of 6 cards) on gamescreen*/
@@ -491,7 +499,7 @@ public class GameScreen extends JDialog
             gameDiff = 6;
         }
         
-        ImageIcon cardBackImage = new ImageIcon("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+        ImageIcon cardBackImage = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
             
             
             // Load random list of images to use
@@ -504,13 +512,13 @@ public class GameScreen extends JDialog
                  try {
                      BufferedImage img = null;
                      if (test == 1) {
-                             img = ImageIO.read(new File("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
+                             img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
                              test = 2;
                      }else if (test == 2) {
-                         img = ImageIO.read(new File("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
+                         img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
                          test = 3;
                      } else {
-                         img = ImageIO.read(new File("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
+                         img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
                          test = 1;
                      }
                      Image dimg = img.getScaledInstance(144, 216,
@@ -578,11 +586,13 @@ private void flipCardEvent(MouseEvent e) {
         } else {
             Card previousCard = cardsMap.get(firstCardClicked);
             
-            if (previousCard.getfrontImage() == cardToCheck.getfrontImage()) {//what happened here again?
+            if (previousCard.getfrontImage() == cardToCheck.getfrontImage()) {
                 // Clicked match
                 // Do Stuff
                 cardToCheck.setMatched(true);
                 previousCard.setMatched(true);
+                
+                allMatch++;//increment each card match, NOT each card!
 
                 firstCardClicked = null;
             } else {
@@ -605,11 +615,7 @@ private void flipCardEvent(MouseEvent e) {
                 TimerAction ta = new TimerAction( previousCard, cardToCheck, icon, previousIcon);
                 Timer t = new Timer(1000, ta);
                 t.setRepeats(false);
-                t.start();
-                
-                
-                //card to check
-                icon.setIcon(cardToCheck.getbackImage());
+                t.start();               
                 
                 // Put timer to delay flip here
                 
@@ -625,6 +631,10 @@ private void flipCardEvent(MouseEvent e) {
         icon.setIcon(cardToCheck.getfrontImage());
     } else {
         icon.setIcon(cardToCheck.getbackImage());
+    }
+    
+    if(allMatch == gameDiff){
+        JOptionPane.showMessageDialog (null, "Congradulations, you got them all right!");
     }
 }
       

@@ -13,14 +13,14 @@ import javax.swing.*;
 
 public class sqlliteConnect {
     
-    Connection conn= null;
+    Connection conn = null;
     
     public static Connection ConnecrDb(){
     
         try{
             
         Class.forName("org.sqlite.JDBC");
-        Connection conn =DriverManager.getConnection("jdbc:sqlite:..\\MMLGameDB.sqlite");
+        Connection conn =DriverManager.getConnection("jdbc:sqlite:..\\ImageEditTable.sqlite");
                 //JOptionPane.showMessageDialog(null, "Connection not found");
                 return conn;
                 
