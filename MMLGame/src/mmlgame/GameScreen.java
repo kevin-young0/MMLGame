@@ -47,6 +47,9 @@ public class GameScreen extends JDialog
        setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));//don't allow
       //main window to scale any smaller than the default height and width
        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+       this.setUndecorated(false);
+       this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
+       setPreferredSize(new Dimension(this.getBounds().width,this.getBounds().height));
        setLocationRelativeTo(owner);
        
        
@@ -191,6 +194,7 @@ public class GameScreen extends JDialog
    
    private void createGameScreen(ArrayList <Card> cards) {
       pnlGameScreen.removeAll();
+      
       pnlGameScreen.setBackground(Color.CYAN);
       
       //Add a GridBagLayout manager to the Game Screen Panel:      
@@ -264,12 +268,12 @@ public class GameScreen extends JDialog
 
                     @Override
                     public void componentResized(ComponentEvent e) {
-//                        JLabel lbl = ((JLabel) e.getSource());
-//                        ImageIcon imgIcon = (ImageIcon) lbl.getIcon();
-//                        Image dimg = imgIcon.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(),
-//                            Image.SCALE_SMOOTH);
-//                        lbl.setIcon(new ImageIcon(dimg));
-//                        lbl.revalidate();
+                        JLabel lbl = ((JLabel) e.getSource());
+                        ImageIcon imgIcon = (ImageIcon) lbl.getIcon();
+                        Image dimg = imgIcon.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(),
+                            Image.SCALE_SMOOTH);
+                        lbl.setIcon(new ImageIcon(dimg));
+                        lbl.revalidate();
                     }
 
                     @Override
