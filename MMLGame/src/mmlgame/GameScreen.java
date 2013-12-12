@@ -451,7 +451,9 @@ public class GameScreen extends JDialog
       ///////////////////////////////
       ArrayList <Card> gameCards = new ArrayList();
       // Test Cards
-      ImageIcon cardBackImage = new ImageIcon("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+
+      ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+
       for (int numCards = 0; numCards < 6; numCards++) {
         Card gameCard = new Card();
         gameCard.setbackImage(cardBackImage);
@@ -495,7 +497,9 @@ public class GameScreen extends JDialog
             gameDiff = 6;
         }
         
-        ImageIcon cardBackImage = new ImageIcon("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+
+        ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+
             
             
             // Load random list of images to use
@@ -508,13 +512,15 @@ public class GameScreen extends JDialog
                  try {
                      BufferedImage img = null;
                      if (test == 1) {
-                             img = ImageIO.read(new File("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
+
+                             img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
                              test = 2;
                      }else if (test == 2) {
-                         img = ImageIO.read(new File("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
+                         img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
                          test = 3;
                      } else {
-                         img = ImageIO.read(new File("C:\\Users\\Kevin\\Desktop\\Classes\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
+                         img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
+
                          test = 1;
                      }
                      Image dimg = img.getScaledInstance(144, 216,
@@ -628,6 +634,5 @@ private void flipCardEvent(MouseEvent e) {
         icon.setIcon(cardToCheck.getbackImage());
     }
 }
-      
-      
-}//end of GameScreen class
+
+} // End of GameScreen class..

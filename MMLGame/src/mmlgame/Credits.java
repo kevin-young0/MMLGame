@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This is the screen in which the user sees who was involved in the making of
+ *this game...
  */
 package mmlgame;
 
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Randy Nelson
+ * @author RNelson
  */
 public class Credits extends JDialog {
 
@@ -28,6 +28,7 @@ public class Credits extends JDialog {
         initPanel();
         
         pack();
+        
     }
 
     private void initPanel() {
@@ -64,6 +65,7 @@ public class Credits extends JDialog {
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
+                
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -76,8 +78,11 @@ public class Credits extends JDialog {
                             .addComponent(jLabel3)
                             .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(113, Short.MAX_VALUE))
+                
         );
+        
         jPanel1Layout.setVerticalGroup(
+                
             jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -87,11 +92,14 @@ public class Credits extends JDialog {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel3)
                 .addContainerGap(308, Short.MAX_VALUE))
+                
         );
 
         jLabel1.getAccessibleContext().setAccessibleName("lblCreditsHead");
         jLabel1.getAccessibleContext().setAccessibleParent(this);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
     }
+
 }
