@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,11 +50,13 @@ public class GameScreen extends JDialog
        setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));//don't allow
       //main window to scale any smaller than the default height and width
        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+
        
        //Set the GameScreen to open to full screen at default:
        this.setUndecorated(false);//remove borders if true
        this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
        setPreferredSize(new Dimension(this.getBounds().width,this.getBounds().height));       
+
        setLocationRelativeTo(owner);
        
        
@@ -198,6 +201,7 @@ public class GameScreen extends JDialog
    
    private void createGameScreen(ArrayList <Card> cards) {
       pnlGameScreen.removeAll();
+      
       pnlGameScreen.setBackground(Color.CYAN);
       allMatch = 0;
       
@@ -272,12 +276,12 @@ public class GameScreen extends JDialog
 
                     @Override
                     public void componentResized(ComponentEvent e) {
-//                        JLabel lbl = ((JLabel) e.getSource());
-//                        ImageIcon imgIcon = (ImageIcon) lbl.getIcon();
-//                        Image dimg = imgIcon.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(),
-//                            Image.SCALE_SMOOTH);
-//                        lbl.setIcon(new ImageIcon(dimg));
-//                        lbl.revalidate();
+                        JLabel lbl = ((JLabel) e.getSource());
+                        ImageIcon imgIcon = (ImageIcon) lbl.getIcon();
+                        Image dimg = imgIcon.getImage().getScaledInstance(lbl.getWidth(), lbl.getHeight(),
+                            Image.SCALE_SMOOTH);
+                        lbl.setIcon(new ImageIcon(dimg));
+                        lbl.revalidate();
                     }
 
                     @Override
@@ -450,21 +454,19 @@ public class GameScreen extends JDialog
       
       
       //Create the GameScreen Panel:
-      pnlGameScreen = new JPanel();.
+      pnlGameScreen = new JPanel();
       
       ///////////////////////////////
       ArrayList <Card> gameCards = new ArrayList();
       // Test Cards
 
-      ImageIcon cardBackImage = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
 
-
-      //ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+      Image cardBackImage = new ImageIcon(this.getClass().getResource("images/card.png")).getImage();
 
 
       for (int numCards = 0; numCards < 6; numCards++) {
         Card gameCard = new Card();
-        gameCard.setbackImage(cardBackImage);
+        gameCard.setbackImage(new ImageIcon(cardBackImage));
         gameCards.add(gameCard);
       }
       ////////////////////////////////
@@ -506,12 +508,8 @@ public class GameScreen extends JDialog
         }
         
 
-        
-        ImageIcon cardBackImage = new ImageIcon("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
 
-
-        //ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
-
+        Image cardBackImage = new ImageIcon(this.getClass().getResource("images/card.png")).getImage();
 
             
             
@@ -521,38 +519,31 @@ public class GameScreen extends JDialog
                 // Call database for pictures
                 // Query to pick "gamediff" number of images
                  Card card = new Card();
-                 card.setbackImage(cardBackImage);
-                 try {
-                     BufferedImage img = null;
+                 card.setbackImage(new ImageIcon(cardBackImage));
+                 
+                     //File f1 = new File("/images/defaults/farm/farm001.png");
+                     //String path = f1.getPath();
+                     //FileInputStream fis = new FileInputStream(path);
+                     Image img = null;
                      if (test == 1) {
 
-                             img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
+
+                             img = new ImageIcon(this.getClass().getResource("images/default/duck.png")).getImage();
                              test = 2;
                      }else if (test == 2) {
-                         img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
+                         //new File("./images/defaults/farm/farm002.png"
+                         img = new ImageIcon(this.getClass().getResource("images/default/dog.png")).getImage();
                          test = 3;
                      } else {
-                         img = ImageIO.read(new File("E:\\Capstone\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
-
-//
-//                             img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
-//                             test = 2;
-//                     }else if (test == 2) {
-//                         img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
-//                         test = 3;
-//                     } else {
-//                         img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
-
+                         //new File("./images/defaults/farm/farm003.png")
+                         img = new ImageIcon(this.getClass().getResource("images/default/HappyDog.png")).getImage();
 
                          test = 1;
                      }
                      Image dimg = img.getScaledInstance(144, 216,
                             Image.SCALE_SMOOTH);
                  card.setfrontImage(new ImageIcon(dimg));
-                 } catch (IOException ioe) {
-                     ioe.printStackTrace();
-                 }
-                 
+                
                  // Populate card with db results
                  cardsList.add(card);
             }
