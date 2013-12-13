@@ -517,15 +517,15 @@ public class GameScreen extends JDialog
                      Image img = null;
                      if (test == 1) {
 
-                             img = new ImageIcon(this.getClass().getResource("images/defaults/farm001.png")).getImage();
+                             img = new ImageIcon(this.getClass().getResource("images/default/farm001.png")).getImage();
                              test = 2;
                      }else if (test == 2) {
                          //new File("./images/defaults/farm/farm002.png"
-                         img = new ImageIcon(this.getClass().getResource("images/farm001.png")).getImage();
+                         img = new ImageIcon(this.getClass().getResource("images/default/farm001.png")).getImage();
                          test = 3;
                      } else {
                          //new File("./images/defaults/farm/farm003.png")
-                         img = new ImageIcon(this.getClass().getResource("images/farm001.png")).getImage();
+                         img = new ImageIcon(this.getClass().getResource("images/default/farm001.png")).getImage();
 
                          test = 1;
                      }
