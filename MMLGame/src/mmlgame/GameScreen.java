@@ -450,7 +450,7 @@ public class GameScreen extends JDialog
       
       
       //Create the GameScreen Panel:
-      pnlGameScreen = new JPanel();
+      pnlGameScreen = new JPanel();.
       
       ///////////////////////////////
       ArrayList <Card> gameCards = new ArrayList();
