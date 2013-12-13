@@ -39,6 +39,11 @@ public class GameScreen extends JDialog
    private JPanel pnlGameScreen;
    private HashMap<JPanel, Card> cardsMap;
    private JPanel firstCardClicked;
+   static final File baseDir = new File("images/");
+   private Image cardBackImage = new ImageIcon(this.getClass().getResource(baseDir + "/card.png")).getImage();
+   private int allMatch;
+   private int gameDiff;
+
    
 
    //Start of Constructor
@@ -48,9 +53,13 @@ public class GameScreen extends JDialog
        setMinimumSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));//don't allow
       //main window to scale any smaller than the default height and width
        setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-       this.setUndecorated(false);
+
+       
+       //Set the GameScreen to open to full screen at default:
+       this.setUndecorated(false);//remove borders if true
        this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
-       setPreferredSize(new Dimension(this.getBounds().width,this.getBounds().height));
+       setPreferredSize(new Dimension(this.getBounds().width,this.getBounds().height));       
+
        setLocationRelativeTo(owner);
        
        
@@ -197,6 +206,7 @@ public class GameScreen extends JDialog
       pnlGameScreen.removeAll();
       
       pnlGameScreen.setBackground(Color.CYAN);
+      allMatch = 0;
       
       //Add a GridBagLayout manager to the Game Screen Panel:      
       pnlGameScreen.setLayout(new GridBagLayout());
@@ -453,7 +463,6 @@ public class GameScreen extends JDialog
       ArrayList <Card> gameCards = new ArrayList();
       // Test Cards
 
-      Image cardBackImage = new ImageIcon(this.getClass().getResource("images/card.png")).getImage();
 
       for (int numCards = 0; numCards < 6; numCards++) {
         Card gameCard = new Card();
@@ -487,7 +496,7 @@ public class GameScreen extends JDialog
         //cboDifficulty.addActionListener(this);
         String difficulty =  cboDifficulty.getSelectedItem().toString();
         
-        int gameDiff = 0;//initialize gameDiff to 0
+            gameDiff = 0;//initialize gameDiff to 0
         
         if(difficulty.equals("Beginner")){//Beginnner
         /*place 3 cards and 1 copy of each card (total of 6 cards) on gamescreen*/
@@ -498,10 +507,6 @@ public class GameScreen extends JDialog
             gameDiff = 6;
         }
         
-
-        Image cardBackImage = new ImageIcon(this.getClass().getResource("images/card.png")).getImage();
-
-            
             
             // Load random list of images to use
             int test = 1;
@@ -516,6 +521,7 @@ public class GameScreen extends JDialog
                      //FileInputStream fis = new FileInputStream(path);
                      Image img = null;
                      if (test == 1) {
+
 
                              img = new ImageIcon(this.getClass().getResource("images/default/duck.png")).getImage();
                              test = 2;
@@ -596,6 +602,8 @@ private void flipCardEvent(MouseEvent e) {
                 // Do Stuff
                 cardToCheck.setMatched(true);
                 previousCard.setMatched(true);
+                
+                allMatch++;//increment each card match, NOT each card!
 
                 firstCardClicked = null;
             } else {
@@ -618,8 +626,7 @@ private void flipCardEvent(MouseEvent e) {
                 TimerAction ta = new TimerAction( previousCard, cardToCheck, icon, previousIcon);
                 Timer t = new Timer(1000, ta);
                 t.setRepeats(false);
-                t.start();
-                
+                t.start();               
                 
                 // Put timer to delay flip here
                 
@@ -635,6 +642,10 @@ private void flipCardEvent(MouseEvent e) {
         icon.setIcon(cardToCheck.getfrontImage());
     } else {
         icon.setIcon(cardToCheck.getbackImage());
+    }
+    
+    if(allMatch == gameDiff){
+        JOptionPane.showMessageDialog (null, "Congratulations, you got them all right!");
     }
 }
 
