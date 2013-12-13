@@ -1,8 +1,8 @@
 /*
  * This page is the pagge in which the user will enter to choose which
  *folder/category of pictures he/she wants to use, an Add Group button to add a
- *new folder/category, exit the program, Upload an image, create a caption, and
- *save the folder with it's proper caption in the folder...
+ *new folder/category, exit back to the main program, Upload an image, create a 
+ * caption, and save the folder with it's proper caption in the folder...
  *
  * @author TBuchli
 */
