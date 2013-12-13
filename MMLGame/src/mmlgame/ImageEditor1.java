@@ -115,7 +115,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnl1.add(pnlSpacer, gbc);
 
         // Create the cboSelectGroup, and add it to the navigation panel:
-        cboSelectGroup = new JComboBox();
         cboSelectGroup.setPreferredSize(new Dimension(150, 40));
         cboSelectGroup.setMinimumSize(new Dimension(150, 40));
 
@@ -213,7 +212,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weighty = 0;
         pnl1.add(pnlSpacer, gbc);
 
-        //Create the btnExit button, and add it to the navigation panel:
+        // Create the btnExit button, and add it to the navigation panel:
         btnExit = new JButton("Exit");
         btnExit.setPreferredSize(new Dimension(150, 40));
         btnExit.setMinimumSize(new Dimension(150, 40));
@@ -273,10 +272,9 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weighty = 0;
 
         this.add(pnl1, gbc);
-
         //End of Row1 Panel...
 
-        ////////////////////////////////////////////////////////////////////////
+        
         //Start of Row2 Panel...
         pnl2 = new JPanel();
 
@@ -310,12 +308,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         // Add the icon here:
         lblIcon = new JLabel();
 
-        /*hint for refering/calling variables from another 
-        class (within the mmlgame package):
-        classname | variable
-        CropImage.icon;
-        */
-
         lblIcon.setBackground(Color.ORANGE);
         lblIcon.setPreferredSize(new Dimension(144, 216));        
         lblIcon.setMinimumSize(new Dimension(144, 216));
@@ -335,7 +327,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         // Caption Label...
         lblCaption = new JLabel();
-        lblCaption.setFont(new Font("Algerian", Font.BOLD, 12));
+        lblCaption.setFont(new Font("Bodoni MT Black", Font.BOLD, 14));
 
         lblCaption.setBackground(Color.WHITE);
         lblCaption.setOpaque(true);
@@ -393,9 +385,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weighty = 1; 
 
         this.add(pnl2, gbc);
-
-        /*End of Row2 Panel*/        
-        ////////////////////////////////////////////////////////////////////////
+        /*End of Row2 Panel*/
 
         /*Start of Row3 Panel*/
         pnl3 = new JPanel();
@@ -612,7 +602,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
    // @Override
    public void actionPerformed(ActionEvent e) {
        
-   //     btnSaveActionPerformed(e);
+   //btnSaveActionPerformed(e);
 
    } // End actionPerformed(ActionEvent e)...
 
@@ -628,73 +618,27 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
     }
     
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
     private void btnAddGroupActionPerformed(java.awt.event.ActionEvent evt) {
-        
-       
+               
         // Get a guess from the user...
         String strCat = JOptionPane.showInputDialog("Please enter a new folder/category name: ");
         
-        //Validate (cant save same category names)...
+        // Validate (can't save same category names)...
         
-        
+                
         System.out.println(strCat);
         
-        // Needs to generate new table in DB so combobox displays new
-        //folder/category...
-        final String DB_URL = ("jdbc:sqlite:ImageEditTable.sqlite");
-        Connection conn = null;
-        try {
-            
-            // Create a connection to the dattabase...
-            Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection(DB_URL);
-            
-            Statement stmt = null;
-            String sql = "INSERT INTO ImageTble VALUES ('"+strCat+"')";
-            
-            //
-            
-            try {
-                stmt = conn.createStatement();
-                if (stmt.executeUpdate(sql)!=1) {
-                    // Something wrong with INSERT statement...
-                     System.out.println("This is wrong somehow: >>" + sql + "<<");
-                }
-               stmt.close();
-            } catch (SQLException e ) {
-                System.out.println("Error: " + e.getMessage());
-            } finally {
-                if (stmt != null) { stmt.close(); }
-            }
-            
-            conn.close();
-            conn = null;
-///////////////////////////JTable table = newJTable(data, columnNames);//////////////////////////////////
-            
-        }
+        // Fill ComboBox with string name...
+        cboSelectGroup.addItem(strCat);
         
-        catch(Exception ex) {
-            
-            System.out.println("Error: " + ex.getMessage());
-
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                    conn = null;
-                } catch (SQLException ex) {}
-            }
-        }
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {
         
-        //Create a file chooser...
+        // Create a file chooser...
         JFileChooser fc = new JFileChooser();
 
-        //In response to a button click:
+        // In response to a button click:
         int returnVal = fc.showOpenDialog(null);
 
         fc.setFileSelectionMode(fc.DIRECTORIES_ONLY);
@@ -720,6 +664,74 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         // Save dialog...
         JOptionPane.showMessageDialog(null, "Folder/Category/Image has been saved!!!");
         
+        /*
+        // Get a guess from the user...
+        String strCat = JOptionPane.showInputDialog("Please enter a new folder/category name: ");
+        
+        /////////////////////////// Validate (can't save same category names)...
+                
+        System.out.println(strCat);
+        
+        // Needs to generate new table in DB so combobox displays new
+        //folder/category...
+        final String DB_URL = ("jdbc:sqlite:ImageEditTable.sqlite");
+        Connection conn = null;
+        
+        try {
+            
+            // Create a connection to the database...
+            Class.forName("org.sqlite.JDBC");
+            conn = DriverManager.getConnection(DB_URL);
+            
+            Statement stmt = null;
+            String sql = "INSERT INTO ImageTble VALUES ('"+strCat+"')";
+            
+            try {
+                
+                stmt = conn.createStatement();
+                
+                if (stmt.executeUpdate(sql)!=1) {
+                    
+                    // Something wrong with INSERT statement...
+                     System.out.println("This is wrong somehow: >>" + sql + "<<");
+                     
+                }
+                
+               stmt.close();
+               
+            } catch (SQLException e ) {
+                
+                System.out.println("Error: " + e.getMessage());
+                
+            } finally {
+                
+                if (stmt != null) { stmt.close(); }
+                
+            }
+            
+            conn.close();
+            conn = null;
+            
+///////////////JTable table = newJTable(data, columnNames);/////////////////////
+            
+        }
+        
+        catch(Exception ex) {
+            
+            System.out.println("Error: " + ex.getMessage());
+
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                    conn = null;
+                } catch (SQLException ex) {}
+            }
+        }
+        */
+        
     } // End BtnSave...
+    
+    
     
 } // End ImageEditor1 extends JDialog implements ActionListener...
