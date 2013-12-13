@@ -39,6 +39,8 @@ public class GameScreen extends JDialog
    private JPanel pnlGameScreen;
    private HashMap<JPanel, Card> cardsMap;
    private JPanel firstCardClicked;
+   static final File baseDir = new File("images/");
+   private Image cardBackImage = new ImageIcon(this.getClass().getResource(baseDir + "/card.png")).getImage();
    
 
    //Start of Constructor
@@ -453,7 +455,7 @@ public class GameScreen extends JDialog
       ArrayList <Card> gameCards = new ArrayList();
       // Test Cards
 
-      Image cardBackImage = new ImageIcon(this.getClass().getResource("images/card.png")).getImage();
+      //Image cardBackImage = new ImageIcon(this.getClass().getResource(baseDir + "/card.png")).getImage();
 
       for (int numCards = 0; numCards < 6; numCards++) {
         Card gameCard = new Card();
@@ -499,7 +501,7 @@ public class GameScreen extends JDialog
         }
         
 
-        Image cardBackImage = new ImageIcon(this.getClass().getResource("images/card.png")).getImage();
+        
 
             
             
