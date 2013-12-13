@@ -33,9 +33,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -78,7 +75,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
     private ImageEditor1() {
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet!!!");
 
     } // End ImageEditor1()...
 
@@ -115,6 +112,10 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnl1.add(pnlSpacer, gbc);
 
         // Create the cboSelectGroup, and add it to the navigation panel:
+        cboSelectGroup = new JComboBox();
+        
+        // 
+        
         cboSelectGroup.setPreferredSize(new Dimension(150, 40));
         cboSelectGroup.setMinimumSize(new Dimension(150, 40));
 
@@ -630,6 +631,13 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         
         // Fill ComboBox with string name...
         cboSelectGroup.addItem(strCat);
+        cboSelectGroup.setSelectedItem(strCat);
+        
+        String destination = "E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images";
+        
+        File createDir = new File(destination + "\\" + strCat);
+        // Add working directory...
+        createDir.mkdir();
         
     }
 
@@ -661,8 +669,13 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         // Save Caption...
         String sveCaption = lblCaption.getText();
         
+        
+        
         // Save dialog...
         JOptionPane.showMessageDialog(null, "Folder/Category/Image has been saved!!!");
+        
+        // Get selected
+        cboSelectGroup.getSelectedItem();
         
         /*
         // Get a guess from the user...

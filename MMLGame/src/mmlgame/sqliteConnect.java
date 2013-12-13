@@ -2,12 +2,14 @@
  * This program allows user to create a file in a database, and access that file
  *later in the future...
  */
-package mmlgame;
+//package mmlgame;
 
 /**
  *
  * @author RNelson
  */
+
+/*
 import java.sql.*;
 import javax.swing.*;
 
@@ -35,3 +37,4 @@ public class sqliteConnect {
         }
             
     }
+*/
