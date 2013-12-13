@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -452,11 +453,11 @@ public class GameScreen extends JDialog
       ArrayList <Card> gameCards = new ArrayList();
       // Test Cards
 
-      ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+      Image cardBackImage = new ImageIcon(this.getClass().getResource("images/card.png")).getImage();
 
       for (int numCards = 0; numCards < 6; numCards++) {
         Card gameCard = new Card();
-        gameCard.setbackImage(cardBackImage);
+        gameCard.setbackImage(new ImageIcon(cardBackImage));
         gameCards.add(gameCard);
       }
       ////////////////////////////////
@@ -498,7 +499,7 @@ public class GameScreen extends JDialog
         }
         
 
-        ImageIcon cardBackImage = new ImageIcon("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\card.png");
+        Image cardBackImage = new ImageIcon(this.getClass().getResource("images/card.png")).getImage();
 
             
             
@@ -508,28 +509,30 @@ public class GameScreen extends JDialog
                 // Call database for pictures
                 // Query to pick "gamediff" number of images
                  Card card = new Card();
-                 card.setbackImage(cardBackImage);
-                 try {
-                     BufferedImage img = null;
+                 card.setbackImage(new ImageIcon(cardBackImage));
+                 
+                     //File f1 = new File("/images/defaults/farm/farm001.png");
+                     //String path = f1.getPath();
+                     //FileInputStream fis = new FileInputStream(path);
+                     Image img = null;
                      if (test == 1) {
 
-                             img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm001.png"));
+                             img = new ImageIcon(this.getClass().getResource("images/defaults/farm001.png")).getImage();
                              test = 2;
                      }else if (test == 2) {
-                         img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm002.png"));
+                         //new File("./images/defaults/farm/farm002.png"
+                         img = new ImageIcon(this.getClass().getResource("images/farm001.png")).getImage();
                          test = 3;
                      } else {
-                         img = ImageIO.read(new File("E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images\\defaults\\farm\\farm003.png"));
+                         //new File("./images/defaults/farm/farm003.png")
+                         img = new ImageIcon(this.getClass().getResource("images/farm001.png")).getImage();
 
                          test = 1;
                      }
                      Image dimg = img.getScaledInstance(144, 216,
                             Image.SCALE_SMOOTH);
                  card.setfrontImage(new ImageIcon(dimg));
-                 } catch (IOException ioe) {
-                     ioe.printStackTrace();
-                 }
-                 
+                
                  // Populate card with db results
                  cardsList.add(card);
             }
