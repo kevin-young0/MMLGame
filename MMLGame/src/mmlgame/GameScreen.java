@@ -43,6 +43,7 @@ public class GameScreen extends JDialog
    private Image cardBackImage = new ImageIcon(this.getClass().getResource(baseDir + "/card.png")).getImage();
    private int allMatch;
    private int gameDiff;
+   File[] comboFile;
 
    
 
@@ -103,14 +104,17 @@ public class GameScreen extends JDialog
       pnlNavigation.add(pnlSpacer, gbc); 
       
       
-      
-
-
+      /*CBO IMAGES HERE, GRIDY = 1*/
       //Create the Images Combo Box, and add it to the navigation panel:      
       cboImages = new JComboBox();
       cboImages.setPreferredSize(new Dimension(150, 40));
       cboImages.setMinimumSize(new Dimension(150, 40));
-      
+      comboFile = baseDir.listFiles();
+      for(int ctr = 0; ctr < comboFile.length; ctr++){
+          if(comboFile[ctr].isDirectory()){
+              cboImages.addItem(comboFile[ctr].getName());
+          }
+      }
       //Position and set the scaling properties for the Images ComboBox:
       gbc = new GridBagConstraints();
       gbc.gridx = 0;
@@ -339,35 +343,9 @@ public class GameScreen extends JDialog
       //http://stackoverflow.com/questions/14558959/adding-images-to-cells-in-a-gridlayout
       
        pnlGameScreen.revalidate();
-       }//end of createGameScreen
+       }//end of createGameScreen   
    
-   
-      //2: Use For loop to dynamically create rows and columns
-      //  for (rows) {
-      //     for (cols) {
-   
-   
-   //public void printCells(){
-//        Card aCard;//"aCard" is a local variable (of datatype "Card", thanks to 
-//        //the Card.java class). Each cell will be dynamically poplulated with 
-//        //the card that was randomly assigned to it in the "setCells()" method.
-//        for(int row = 0; row < board.length; row++){
-//            
-//            for(int col = 0; col < board[0].length; col++){              
-//            {
-//                aCard = board [row][col];//let each cell be populated with its
-//                //new card (the aCard object)
-//                aCard.showCard();//show the card face down in it's new cell. It
-//                //should also be noted that this statment is using the 
-//                //"showCard()" method in the Card.java class.
-//            }
-//            System.out.println();
-//          }//end of col for loop
-//        }//end of row for loop
-      //}//end of printCells()
-   
-   
-      //change "words" to frontImage (the hidden front of the card)
+     
     public void shuffle(ArrayList<Card> cards){//shuffle the randomly selected hidden images
         r = new Random();//initialize the random object field
         for(int a = 0; a < cards.size(); a++){//loop through the array of words
@@ -434,11 +412,6 @@ public class GameScreen extends JDialog
       this.setLayout(new GridBagLayout());      
       GridBagConstraints gbc = new GridBagConstraints();   
       
-      
-      
-      
-      // End Test Cards            
-
       //Create the Navigatin panel:
       JPanel pnlNavigation = new JPanel();      
       
@@ -509,8 +482,8 @@ public class GameScreen extends JDialog
         
             
             // Load random list of images to use
-            int test = 1;
-            for (int c = 0; c < gameDiff; c++) {//WHAT IS "c"?
+            //int test = 1;
+            for (int c = 0; c < gameDiff; c++) {
                 // Call database for pictures
                 // Query to pick "gamediff" number of images
                  Card card = new Card();
@@ -520,27 +493,55 @@ public class GameScreen extends JDialog
                      //String path = f1.getPath();
                      //FileInputStream fis = new FileInputStream(path);
                      Image img = null;
-                     if (test == 1) {
-
-
-                             img = new ImageIcon(this.getClass().getResource("images/default/duck.png")).getImage();
-                             test = 2;
-                     }else if (test == 2) {
-                         //new File("./images/defaults/farm/farm002.png"
-                         img = new ImageIcon(this.getClass().getResource("images/default/dog.png")).getImage();
-                         test = 3;
-                     } else {
-                         //new File("./images/defaults/farm/farm003.png")
-                         img = new ImageIcon(this.getClass().getResource("images/default/HappyDog.png")).getImage();
-
-                         test = 1;
-                     }
-                     Image dimg = img.getScaledInstance(144, 216,
-                            Image.SCALE_SMOOTH);
-                 card.setfrontImage(new ImageIcon(dimg));
+//                     if (test == 1) {
+//
+//                         /*
+//                          http://stackoverflow.com/questions/7705059/select-an-object-at-random
+//                          for (int i = 0; i < cardsArray.length; i++) {
+//    cardsArray[i].setIcon(new ImageIcon("image/card/card/" + String.valueOf(array[i]) + ".png"));
+//                         
+//                         static final File baseDir = new File("images/");
+//                         private Image cardBackImage = new ImageIcon(this.getClass().getResource(baseDir + "/card.png")).getImage();
+//}
+//                          */
+//                         
+//                        
+//
+//                             img = new ImageIcon(this.getClass().getResource("images/default/duck.png")).getImage();
+//                             test = 2;
+//                     }else if (test == 2) {
+//                         //new File("./images/defaults/farm/farm002.png"
+//                         img = new ImageIcon(this.getClass().getResource("images/default/dog.png")).getImage();
+//                         test = 3;
+//                     } else {
+//                         //new File("./images/defaults/farm/farm003.png")
+//                         img = new ImageIcon(this.getClass().getResource("images/default/HappyDog.png")).getImage();
+//
+//                         test = 1;
+//                     }
+                     //for(int x = 0; x < gameDiff; x++){
+                     
+                     //files.add(new ImageIcon(getClass().getResource(Scan.next())));
+                     
+                     //baseDir = mmlgame.images/(list of directories)
+                     
+                     
+                     
+                     
+                     String selectedDir = this.baseDir.toString();
+                     new ImageIcon(getClass().getResource(selectedDir + img + ".png")); 
+                     
+                     img = new ImageIcon(this.getClass().getResource(selectedDir + "/" + img + ".png")).getImage();
+                     
+                        img = new ImageIcon(this.getClass().getResource(baseDir + "/default/HappyDog.png")).getImage();
+                      
+                     
+                        Image dimg = img.getScaledInstance(144, 216, Image.SCALE_SMOOTH);
+                        card.setfrontImage(new ImageIcon(dimg));
                 
-                 // Populate card with db results
-                 cardsList.add(card);
+                        // Populate card with db results
+                        cardsList.add(card);
+                    //}
             }
             
 
@@ -647,6 +648,7 @@ private void flipCardEvent(MouseEvent e) {
     if(allMatch == gameDiff){
         JOptionPane.showMessageDialog (null, "Congratulations, you got them all right!");
     }
-}
+    
+}//end of flip card event
 
 } // End of GameScreen class..
