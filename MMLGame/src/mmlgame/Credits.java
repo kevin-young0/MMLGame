@@ -20,7 +20,7 @@ public class Credits extends JDialog {
 
     Credits(JFrame owner) {
         
-        setPreferredSize(new Dimension(600,400));
+        setPreferredSize(new Dimension(350,500));
         setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         setLocationRelativeTo(owner);
         
@@ -58,9 +58,9 @@ public class Credits extends JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/credits.png"))); // NOI18N
 
-        jLabel2.setText("Kevin Young");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/credits2.gif")));  
 
-        jLabel3.setText("Randy Nelson");
+        jLabel3.setText("");
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,7 +76,7 @@ public class Credits extends JDialog {
                         .addGap(67, 67, 67)
                         .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(113, Short.MAX_VALUE))
                 
         );
@@ -88,7 +88,7 @@ public class Credits extends JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(jLabel3)
                 .addContainerGap(308, Short.MAX_VALUE))
