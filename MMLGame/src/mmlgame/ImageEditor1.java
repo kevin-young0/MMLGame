@@ -51,7 +51,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     private JLabel lblImage;
     private JLabel lblIcon;
     private JLabel lblLogo;
-
     
     private final int WINDOW_WIDTH = 570;
     private final int WINDOW_HEIGHT = 470;
@@ -111,11 +110,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         pnl1.add(pnlSpacer, gbc);
 
-        // Create the cboSelectGroup, and add it to the navigation panel:
-        cboSelectGroup = new JComboBox();
-        
-        // 
-        
+        // Create the cboSelectGroup, and add it to the navigation panel:        
         cboSelectGroup.setPreferredSize(new Dimension(150, 40));
         cboSelectGroup.setMinimumSize(new Dimension(150, 40));
 
@@ -274,7 +269,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         this.add(pnl1, gbc);
         //End of Row1 Panel...
-
         
         //Start of Row2 Panel...
         pnl2 = new JPanel();
@@ -620,7 +614,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     }
     
     private void btnAddGroupActionPerformed(java.awt.event.ActionEvent evt) {
-               
+        
         // Get a guess from the user...
         String strCat = JOptionPane.showInputDialog("Please enter a new folder/category name: ");
         
@@ -668,8 +662,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         // Save Caption...
         String sveCaption = lblCaption.getText();
-        
-        
         
         // Save dialog...
         JOptionPane.showMessageDialog(null, "Folder/Category/Image has been saved!!!");
@@ -744,7 +736,5 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         */
         
     } // End BtnSave...
-    
-    
     
 } // End ImageEditor1 extends JDialog implements ActionListener...
