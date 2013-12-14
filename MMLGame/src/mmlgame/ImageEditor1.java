@@ -110,7 +110,8 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         pnl1.add(pnlSpacer, gbc);
 
-        // Create the cboSelectGroup, and add it to the navigation panel:        
+        // Create the cboSelectGroup, and add it to the navigation panel:    
+        cboSelectGroup = new JComboBox();
         cboSelectGroup.setPreferredSize(new Dimension(150, 40));
         cboSelectGroup.setMinimumSize(new Dimension(150, 40));
 
@@ -627,9 +628,9 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         cboSelectGroup.addItem(strCat);
         cboSelectGroup.setSelectedItem(strCat);
         
-        String destination = "E:\\School\\Term\\School Fall 2013\\Courses\\ITPA-Capstone\\Project\\MMLGame\\MMLGame\\src\\mmlgame\\images";
+        String destination = "images/";
         
-        File createDir = new File(destination + "\\" + strCat);
+        File createDir = new File(destination + "/" + strCat);
         // Add working directory...
         createDir.mkdir();
         

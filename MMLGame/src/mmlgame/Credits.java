@@ -56,9 +56,9 @@ public class Credits extends JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/credits.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("images/credits.png"))); 
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/credits2.gif")));  
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/credit2.png")));  
 
         jLabel3.setText("");
 
