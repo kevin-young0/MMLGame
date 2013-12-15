@@ -231,12 +231,12 @@ public class GameScreen extends JDialog
                 });
                 
                 pnlCard.setLayout(new GridBagLayout());
-                JLabel lblImage = new JLabel();        
+                JLabel lblImage = new JLabel(); 
                 
                 lblImage.setPreferredSize(new Dimension(144, 216));
                 lblImage.setMinimumSize(new Dimension(144, 216));
                 lblImage.setMaximumSize(new Dimension(144, 216));
-                
+                                
                 if (card.isShowing()) {
                     lblImage.setIcon(card.getfrontImage());
                 } else {
@@ -373,7 +373,35 @@ public class GameScreen extends JDialog
         File filePath = new File(baseDir + "/" + userDir);
         
         comboFile =  filePath.listFiles();
-           
+        
+
+        List<File> listShuffle = Arrays.asList(comboFile);
+        Collections.shuffle(listShuffle);
+        for(int tick = 0; tick < listShuffle.size(); tick++){
+            comboFile[tick] = listShuffle.get(tick);
+        }
+        
+        for(int ctr = 0; ctr < comboFile.length; ctr++){
+            if(ctr < gameDiff){
+                
+                Card card = new Card();
+                card.setbackImage(new ImageIcon(cardBackImage));
+                
+                Image img = null;
+                if(comboFile[ctr].isFile()){
+                    img = new ImageIcon(this.getClass().getResource(comboFile[ctr].getPath())).getImage();
+                }
+                     
+                Image dimg = img.getScaledInstance(144, 216, Image.SCALE_SMOOTH);
+                card.setfrontImage(new ImageIcon(dimg));
+                
+                // Populate card with db results
+                cardsList.add(card);
+            
+            }
+        }
+            
+ 
             // Clone list of cards for game
             for(int counter = 0; counter < gameDiff && counter < cardsList.size(); counter++){
                 // Pull out current card from the loop
