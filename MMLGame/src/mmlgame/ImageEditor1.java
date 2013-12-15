@@ -2,9 +2,9 @@
  * This page is the pagge in which the user will enter to choose which
  *folder/category of pictures he/she wants to use, an Add Group button to add a
  *new folder/category, exit back to the main program, Upload an image, create a 
- * caption, and save the folder with it's proper caption in the folder...
+ *caption, and save the folder with it's proper caption in the folder...
  *
- * @author TBuchli
+ * @author TBuchli & KYoung & RNelson & SPeterson
 */
 
 package mmlgame;
@@ -22,7 +22,10 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -63,6 +66,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     private JPanel pnl1;
     private JPanel pnl2;
     private JPanel pnl3;
+    private String imageFilename = "";
     
     // Start of Constructor...
     public ImageEditor1(JFrame owner) {
@@ -655,9 +659,9 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         fc.setFileSelectionMode(fc.DIRECTORIES_ONLY);
         if (returnVal == fc.APPROVE_OPTION) {
             File selectedFile = fc.getSelectedFile();
-            String filename = selectedFile.getPath();
-            JOptionPane.showMessageDialog(null, "You selected " + filename);
-            ImageIcon imageView = new ImageIcon(filename);
+            imageFilename = selectedFile.getPath();
+            JOptionPane.showMessageDialog(null, "You selected " + imageFilename);
+            ImageIcon imageView = new ImageIcon(imageFilename);
             lblIcon.setIcon(imageView);
 
         } // End if() {}...
@@ -667,7 +671,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
         
         // Save ImageIcon...
-        ImageIcon sveImage = (ImageIcon)lblIcon.getIcon();
+        //ImageIcon sveImage = (ImageIcon)lblIcon.getIcon();
 
         // Save Caption...
         String sveCaption = lblCaption.getText();
@@ -683,12 +687,14 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         
         // Create new file...
         File javaFilePath = new File(src, "/" + lblCaption.getText() + ".png");
-        
+        File oldImage = new File(imageFilename);
         if (! javaFilePath.exists()){
             
             JOptionPane.showMessageDialog(null, "Folder/Category, Image and Caption saved!!!");
-///////////////////////////////            File.renameTo(javaFilePath);
-            
+            //oldImage.renameTo(javaFilePath);
+            FileChannel copyFile = new FileInputStream(oldImage).getChannel();
+            FileChannel dest = new FileOutputStream(javaFilePath).getChannel();
+            dest.transferFrom(copyFile, 0, copyFile.size());
         }else{
             
             System.out.println("This is not working");
