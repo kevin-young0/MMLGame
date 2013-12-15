@@ -200,5 +200,72 @@ public class TestPanel extends JDialog {
 /*    private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {                                          
 
     }                                         
-*/                
+*/
+    
+    /*
+        // Get a guess from the user...
+        String strCat = JOptionPane.showInputDialog("Please enter a new folder/category name: ");
+        
+        /////////////////////////// Validate (can't save same category names)...
+                
+        System.out.println(strCat);
+        
+        // Needs to generate new table in DB so combobox displays new
+        //folder/category...
+        final String DB_URL = ("jdbc:sqlite:ImageEditTable.sqlite");
+        Connection conn = null;
+        
+        try {
+            
+            // Create a connection to the database...
+            Class.forName("org.sqlite.JDBC");
+            conn = DriverManager.getConnection(DB_URL);
+            
+            Statement stmt = null;
+            String sql = "INSERT INTO ImageTble VALUES ('"+strCat+"')";
+            
+            try {
+                
+                stmt = conn.createStatement();
+                
+                if (stmt.executeUpdate(sql)!=1) {
+                    
+                    // Something wrong with INSERT statement...
+                     System.out.println("This is wrong somehow: >>" + sql + "<<");
+                     
+                }
+                
+               stmt.close();
+               
+            } catch (SQLException e ) {
+                
+                System.out.println("Error: " + e.getMessage());
+                
+            } finally {
+                
+                if (stmt != null) { stmt.close(); }
+                
+            }
+            
+            conn.close();
+            conn = null;
+            
+///////////////JTable table = newJTable(data, columnNames);/////////////////////
+            
+        }
+        
+        catch(Exception ex) {
+            
+            System.out.println("Error: " + ex.getMessage());
+
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                    conn = null;
+                } catch (SQLException ex) {}
+            }
+        }
+        */
+    
 }

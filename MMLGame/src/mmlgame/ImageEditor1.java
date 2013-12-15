@@ -22,6 +22,12 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,6 +39,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import static mmlgame.GameScreen.baseDir;
 
 /**
  *
@@ -51,6 +58,8 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     private JLabel lblImage;
     private JLabel lblIcon;
     private JLabel lblLogo;
+   static final File baseDir = new File("images/");
+   File[] comboFile;
     
     private final int WINDOW_WIDTH = 570;
     private final int WINDOW_HEIGHT = 470;
@@ -82,11 +91,13 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         this.setLayout(new GridBagLayout());
         this.setBackground(Color.GREEN);
-
+        
+        // Create panel:
         pnl1 = new JPanel();
 
         int gridx = 0;
-        // Set pnl1 background color...
+        
+        // Set background color, and layout...
         pnl1.setBackground(this.getBackground());
         pnl1.setLayout(new GridBagLayout());
 
@@ -114,22 +125,33 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         cboSelectGroup = new JComboBox();
         cboSelectGroup.setPreferredSize(new Dimension(150, 40));
         cboSelectGroup.setMinimumSize(new Dimension(150, 40));
+        
+        // Populate combobox with folder/category nammes...
+        comboFile = baseDir.listFiles();
+        
+        for(int ctr = 0; ctr < comboFile.length; ctr++) {
 
+            if(comboFile[ctr].isDirectory()) {
+                
+                cboSelectGroup.addItem(comboFile[ctr].getName());
+
+            } // End if() {}...
+
+        } // End for() {}...
+        
+        // addActionListener()...
         cboSelectGroup.addActionListener(new java.awt.event.ActionListener() {
             
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            
-                btnImagesActionPerformed(evt);
 
-            }
+            } // End actionPerformed()...
             
-        });
+        }); // End addActionListener()...
 
         // Set Select Group as component in navigation panel...
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-
-        gbc.gridy = 0; // Up and down...
+        gbc.gridy = 0;
 
         // Don't allow button to resize...
         gbc.fill = GridBagConstraints.NONE;
@@ -144,7 +166,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnlSpacer.setBackground(pnl1.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-        gbc.gridy = 0; // Set spacer above button in navigation panel...
+        gbc.gridy = 0;
 
         // BOTH instead of VERTICAL accomodates for the combo box if it needs to
         //stretch when we start populating it...
@@ -152,8 +174,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         // Takes up 10% of the width of the Navigation panel...
         gbc.weightx = 0;
-
-        // Up and down...
+        
         gbc.weighty = 0;
 
         pnl1.add(pnlSpacer, gbc);
@@ -169,15 +190,15 @@ public class ImageEditor1 extends JDialog implements ActionListener {
                 
                 btnAddGroupActionPerformed(evt);
                 
-            }
+            } // End actionPerformed()...
             
-        });
+        }); // End addActionListener()...
         
         // Set Add Group as component in navigation panel...
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
 
-        gbc.gridy = 0; // Up & down...
+        gbc.gridy = 0;
 
         // Don't allow button to resize...
         gbc.fill = GridBagConstraints.NONE;
@@ -195,8 +216,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnlSpacer.setBackground(pnl1.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-
-        // Set spacer above button in navigation panel...
         gbc.gridy = 0;
 
         // BOTH instead of VERTICAL accomodates for the combobox if it needs to
@@ -207,6 +226,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weightx = 0;
 
         gbc.weighty = 0;
+        
         pnl1.add(pnlSpacer, gbc);
 
         // Create the btnExit button, and add it to the navigation panel:
@@ -219,9 +239,9 @@ public class ImageEditor1 extends JDialog implements ActionListener {
                 
                 btnExitActionPerformed(evt);
                 
-            }
+            } // End actionPerformed()...
             
-        });
+        }); // End addActionListener()...
 
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
@@ -242,7 +262,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnlSpacer.setBackground(pnl1.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-        gbc.gridy = 0; // Set spacer above button in navigation panel...
+        gbc.gridy = 0;
 
         // BOTH instead of VERTICAL accomodates for the combo box if it needs to
         //stretch when we start populating it...
@@ -250,8 +270,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         // Takes up 10% of the width of the Navigation panel...
         gbc.weightx = .5;
-
-        // Up and down...
+        
         gbc.weighty = 0;
 
         pnl1.add(pnlSpacer, gbc);
@@ -286,8 +305,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnlSpacer.setBackground(pnl2.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-
-        // Set spacer above button in navigation panel...
         gbc.gridy = 0;
 
         // BOTH instead of VERTICAL accomodates for the combobox if it needs to
@@ -351,8 +368,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnlSpacer.setBackground(pnl2.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-
-        // Set spacer above button in navigation panel...
         gbc.gridy = 0;
 
         // BOTH instead of VERTICAL accomodates for the combobox if it needs to
@@ -363,6 +378,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weightx = .5;
 
         gbc.weighty = 0;
+        
         pnl2.add(pnlSpacer, gbc);
 
         gbc = new GridBagConstraints();
@@ -397,7 +413,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnlSpacer.setBackground(pnl3.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-        gbc.gridy = 0; // Set spacer above button in navigation panel...
+        gbc.gridy = 0;
 
         // BOTH instead of VERTICAL accomodates for the combo box if it needs to
         //stretch when we start populating it...
@@ -405,8 +421,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         // Takes up 10% of the width of the Navigation panel...
         gbc.weightx = .5;
-
-        // Up and down...
+        
         gbc.weighty = 0;
 
         pnl3.add(pnlSpacer, gbc);
@@ -421,14 +436,14 @@ public class ImageEditor1 extends JDialog implements ActionListener {
                 
                 btnUploadActionPerformed(evt);
                 
-            }
+            } // End actionPerformed()...
             
-        });
+        }); // End addActionListener()...
 
         // Set Upload as component in navigation panel...
-        gbc.gridx = gridx++;  // gridx++ is the same as gridx = gridx + 1;
+        gbc.gridx = gridx++;
 
-        gbc.gridy = 0; // Up & down...
+        gbc.gridy = 0;
 
         // Don't allow button to resize...
         gbc.fill = GridBagConstraints.NONE;
@@ -437,6 +452,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         //should have weights)...
         gbc.weightx = 0;
         gbc.weighty = 0;
+        
         pnl3.add(btnUpload, gbc);
 
         // Spacer between btnUpload and btnCaption:
@@ -444,8 +460,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnlSpacer.setBackground(pnl3.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-
-        // Set spacer above button in navigation panel...
         gbc.gridy = 0;
 
         // BOTH instead of VERTICAL accomodates for the combobox if it needs to
@@ -456,6 +470,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weightx = 0;
 
         gbc.weighty = 0;
+        
         pnl3.add(pnlSpacer, gbc);
 
         // Create the txtCaption, and add it to pnl3:
@@ -476,9 +491,9 @@ public class ImageEditor1 extends JDialog implements ActionListener {
                 
                 lblCaption.setText(((JTextField)e.getSource()).getText());
             
-            }
+            } // End keyReleased()...
         
-        });
+        }); // End addKeyListener()...
 
         txtCaption.addFocusListener(new FocusListener() {
 
@@ -487,18 +502,16 @@ public class ImageEditor1 extends JDialog implements ActionListener {
                 
                 ((JTextField) e.getSource()).selectAll();
                 
-            }
+            } // End focusGained()...
 
             @Override
             public void focusLost(FocusEvent e) {}
             
-        });
-
+        }); // End focusLost()...
+        
         gbc = new GridBagConstraints();
-        // Set txtCaption as component in pnl3:
         gbc.gridx = gridx++;
-
-        gbc.gridy = 0; // Up and down...
+        gbc.gridy = 0;
 
         // Don't allow button to resize...
         gbc.fill = GridBagConstraints.NONE;
@@ -512,8 +525,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnlSpacer.setBackground(pnl3.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-
-        // Set spacer above button in navigation panel...
         gbc.gridy = 0;
 
         // BOTH instead of VERTICAL accomodates for the combobox if it needs to
@@ -524,6 +535,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weightx = 0;
 
         gbc.weighty = 0;
+        
         pnl3.add(pnlSpacer, gbc);
 
         // Create the btnSave, and add it to pnl3:
@@ -533,24 +545,25 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
-                btnSaveActionPerformed(evt);
+                try {
+                    btnSaveActionPerformed(evt);
+                } catch (IOException ex) {
+                    Logger.getLogger(ImageEditor1.class.getName()).log(Level.SEVERE, null, ex);
+                }
             
-            }
-        
-        });
+            }        
+        }); // End addActionListener()...
 
         gbc = new GridBagConstraints();
-        // Set Caption as component in navigation panel...
         gbc.gridx = gridx++;
-
-        gbc.gridy = 0; // Up and down...
+        gbc.gridy = 0;
 
         // Don't allow button to resize...
         gbc.fill = GridBagConstraints.NONE;
 
         gbc.weightx = 0;
-        gbc.weighty = 0;      
+        gbc.weighty = 0;
+        
         pnl3.add(btnSave, gbc);
 
         // Spacer between cboSelectGroup and btnAddGroup:
@@ -559,24 +572,22 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnlSpacer.setBackground(pnl3.getBackground());
         gbc = new GridBagConstraints();
         gbc.gridx = gridx++;
-        gbc.gridy = 0; // Set spacer above button in navigation panel...
-
-        // BOTH instead of VERTICAL accomodates for the combo box if it needs to
-        //stretch when we start populating it...
+        gbc.gridy = 0;
+        
+        // Horizontal allows the combo box to stretch horizontaly when we start
+        //populating it...
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Takes up 10% of the width of the Navigation panel...
         gbc.weightx = .5;
-
-        // Up and down...
+        
         gbc.weighty = 0;
 
         pnl3.add(pnlSpacer, gbc);
 
         gbc = new GridBagConstraints();
+        
         gbc.gridx = 0;
-
-        // Set spacer above button in navigation panel...
         gbc.gridy = 2;
 
         // BOTH instead of VERTICAL accomodates for the combobox if it needs to
@@ -589,39 +600,39 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weighty = 0; 
 
         this.add(pnl3, gbc);
-
         /*End of Row3 Panel*/
-        ////////////////////////////////////////////////////////////////////////
 
     } // End initPanel()...
 
    // @Override
    public void actionPerformed(ActionEvent e) {
-       
-   //btnSaveActionPerformed(e);
+//        try {
+//            btnSaveActionPerformed(e);
+//        } catch (IOException ex) {
+//            Logger.getLogger(ImageEditor1.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
-   } // End actionPerformed(ActionEvent e)...
-
+   }
     // Combobox...
     private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {
 
-    }
+    } // End btnImagesActionPerformed()...
 
     // Exit screen...
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {
         
             this.setVisible(false);
 
-    }
+    } // End btnExitActionPerformed()...
     
     private void btnAddGroupActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
         // Get a guess from the user...
         String strCat = JOptionPane.showInputDialog("Please enter a new folder/category name: ");
         
         // Validate (can't save same category names)...
         
-                
+        // Print folder/category name...
         System.out.println(strCat);
         
         // Fill ComboBox with string name...
@@ -631,10 +642,11 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         String destination = "images/";
         
         File createDir = new File(destination + "/" + strCat);
+        
         // Add working directory...
         createDir.mkdir();
         
-    }
+    } // End btnAddGroupActionPerformed()...
 
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {
         
@@ -652,14 +664,14 @@ public class ImageEditor1 extends JDialog implements ActionListener {
             ImageIcon imageView = new ImageIcon(filename);
             lblIcon.setIcon(imageView);
 
-        }
+        } // End if() {}...
 
-    }
+    } // End btnUploadActionPerformedbtnUploadActionPerformed()...
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
         
         // Save ImageIcon...
-        ImageIcon sveImage = (ImageIcon) lblIcon.getIcon();
+        ImageIcon sveImage = (ImageIcon)lblIcon.getIcon();
 
         // Save Caption...
         String sveCaption = lblCaption.getText();
@@ -667,75 +679,26 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         // Save dialog...
         JOptionPane.showMessageDialog(null, "Folder/Category/Image has been saved!!!");
         
-        // Get selected
-        cboSelectGroup.getSelectedItem();
+        // Convert text in combobox to string...
+        String newDir = cboSelectGroup.getSelectedItem().toString();
         
-        /*
-        // Get a guess from the user...
-        String strCat = JOptionPane.showInputDialog("Please enter a new folder/category name: ");
+        // Convert path to string...
+        String src = baseDir + "/" + newDir;
         
-        /////////////////////////// Validate (can't save same category names)...
-                
-        System.out.println(strCat);
+        // Create new file...
+        File javaFilePath = new File(src, "/" + lblCaption.getText() + ".png");
         
-        // Needs to generate new table in DB so combobox displays new
-        //folder/category...
-        final String DB_URL = ("jdbc:sqlite:ImageEditTable.sqlite");
-        Connection conn = null;
+        if (! javaFilePath.exists()){
+            
+            JOptionPane.showMessageDialog(null, "Folder/Category, Image and Caption saved!!!");
+///////////////////////////////            File.renameTo(javaFilePath);
+            
+        }else{
+            
+            System.out.println("This is not working");
+            
+        } // End if(){else{}...
         
-        try {
-            
-            // Create a connection to the database...
-            Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection(DB_URL);
-            
-            Statement stmt = null;
-            String sql = "INSERT INTO ImageTble VALUES ('"+strCat+"')";
-            
-            try {
-                
-                stmt = conn.createStatement();
-                
-                if (stmt.executeUpdate(sql)!=1) {
-                    
-                    // Something wrong with INSERT statement...
-                     System.out.println("This is wrong somehow: >>" + sql + "<<");
-                     
-                }
-                
-               stmt.close();
-               
-            } catch (SQLException e ) {
-                
-                System.out.println("Error: " + e.getMessage());
-                
-            } finally {
-                
-                if (stmt != null) { stmt.close(); }
-                
-            }
-            
-            conn.close();
-            conn = null;
-            
-///////////////JTable table = newJTable(data, columnNames);/////////////////////
-            
-        }
-        
-        catch(Exception ex) {
-            
-            System.out.println("Error: " + ex.getMessage());
-
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                    conn = null;
-                } catch (SQLException ex) {}
-            }
-        }
-        */
-        
-    } // End BtnSave...
+    } // End btnSaveActionPerformed()...
     
-} // End ImageEditor1 extends JDialog implements ActionListener...
+} // End ImageEditor1 extends JDialog implements ActionListener {}...

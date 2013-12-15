@@ -364,7 +364,7 @@ public class GameScreen extends JDialog
         Random randInt = new Random();
         String userDir = cboImages.getSelectedItem().toString();
         File filePath = new File(baseDir + "/" + userDir);
-        comboFile =  filePath.listFiles();
+        comboFile = filePath.listFiles();
         for(int ctr = 0; ctr < comboFile.length; ctr++){
             if(ctr < gameDiff){
                 int random = randInt.nextInt(comboFile.length);
