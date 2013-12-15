@@ -13,14 +13,20 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.*;
 import mmlgame.ActionListeners.TimerAction;
+import java.util.List;
 
 /**
  * This class demonstrates how to use a FlowLayout manager
@@ -226,7 +232,11 @@ public class GameScreen extends JDialog
                 
                 pnlCard.setLayout(new GridBagLayout());
                 JLabel lblImage = new JLabel();        
-                                
+                
+                lblImage.setPreferredSize(new Dimension(144, 216));
+                lblImage.setMinimumSize(new Dimension(144, 216));
+                lblImage.setMaximumSize(new Dimension(144, 216));
+                
                 if (card.isShowing()) {
                     lblImage.setIcon(card.getfrontImage());
                 } else {
@@ -281,7 +291,7 @@ public class GameScreen extends JDialog
        pnlGameScreen.revalidate();
        }   
      
-    public void shuffle(ArrayList<Card> cards){
+    public void shuffleCard(ArrayList<Card> cards){
         r = new Random();
         for(int a = 0; a < cards.size(); a++){
             int rndPos = r.nextInt(cards.size()-1);
@@ -344,9 +354,7 @@ public class GameScreen extends JDialog
         
         
         ArrayList <Card> cardsList = new ArrayList();
-        
-        
-                   
+                  
         //cboDifficulty.addActionListener(this);
         String difficulty =  cboDifficulty.getSelectedItem().toString();
         
@@ -361,9 +369,9 @@ public class GameScreen extends JDialog
             gameDiff = 6;
         }
         
-        Random randInt = new Random();
         String userDir = cboImages.getSelectedItem().toString();
         File filePath = new File(baseDir + "/" + userDir);
+
         comboFile = filePath.listFiles();
         for(int ctr = 0; ctr < comboFile.length; ctr++){
             if(ctr < gameDiff){
@@ -469,7 +477,7 @@ public class GameScreen extends JDialog
                   
               }                   
         
-        shuffle(cardsList);
+        shuffleCard(cardsList);
         
         createGameScreen(cardsList);
      }     
