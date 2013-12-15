@@ -13,14 +13,20 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.*;
 import mmlgame.ActionListeners.TimerAction;
+import java.util.List;
 
 /**
  * This class demonstrates how to use a FlowLayout manager
@@ -226,7 +232,11 @@ public class GameScreen extends JDialog
                 
                 pnlCard.setLayout(new GridBagLayout());
                 JLabel lblImage = new JLabel();        
-                                
+                
+                lblImage.setPreferredSize(new Dimension(144, 216));
+                lblImage.setMinimumSize(new Dimension(144, 216));
+                lblImage.setMaximumSize(new Dimension(144, 216));
+                
                 if (card.isShowing()) {
                     lblImage.setIcon(card.getfrontImage());
                 } else {
@@ -281,7 +291,7 @@ public class GameScreen extends JDialog
        pnlGameScreen.revalidate();
        }   
      
-    public void shuffle(ArrayList<Card> cards){
+    public void shuffleCard(ArrayList<Card> cards){
         r = new Random();
         for(int a = 0; a < cards.size(); a++){
             int rndPos = r.nextInt(cards.size()-1);
@@ -344,9 +354,7 @@ public class GameScreen extends JDialog
         
         
         ArrayList <Card> cardsList = new ArrayList();
-        
-        
-                   
+                  
         //cboDifficulty.addActionListener(this);
         String difficulty =  cboDifficulty.getSelectedItem().toString();
         
@@ -361,99 +369,11 @@ public class GameScreen extends JDialog
             gameDiff = 6;
         }
         
-        Random randInt = new Random();
         String userDir = cboImages.getSelectedItem().toString();
         File filePath = new File(baseDir + "/" + userDir);
+        
         comboFile =  filePath.listFiles();
-        for(int ctr = 0; ctr < comboFile.length; ctr++){
-            if(ctr < gameDiff){
-                int random = randInt.nextInt(comboFile.length);
-                //randomNumbers += random;
-
-                Card card = new Card();
-                card.setbackImage(new ImageIcon(cardBackImage));
-                
-                Image img = null;
-                
-                img = new ImageIcon(this.getClass().getResource(comboFile[random].getPath())).getImage();
-                      
-                     
-                Image dimg = img.getScaledInstance(144, 216, Image.SCALE_SMOOTH);
-                card.setfrontImage(new ImageIcon(dimg));
-                
-                // Populate card with db results
-                cardsList.add(card);
-            
-            }
-//          if(comboFile[ctr].isDirectory()){
-//              cboImages.addItem(comboFile[ctr].getName());
-//          }
-        }
-            
-            // Load random list of images to use
-            //int test = 1;
-//            for (int c = 0; c < gameDiff; c++) {
-//                // Call database for pictures
-//                // Query to pick "gamediff" number of images
-//                 Card card = new Card();
-//                 card.setbackImage(new ImageIcon(cardBackImage));
-//                 
-//                     //File f1 = new File("/images/defaults/farm/farm001.png");
-//                     //String path = f1.getPath();
-//                     //FileInputStream fis = new FileInputStream(path);
-//                     Image img = null;
-////                     if (test == 1) {
-////
-////                         /*
-////                          http://stackoverflow.com/questions/7705059/select-an-object-at-random
-////                          for (int i = 0; i < cardsArray.length; i++) {
-////    cardsArray[i].setIcon(new ImageIcon("image/card/card/" + String.valueOf(array[i]) + ".png"));
-////                         
-////                         static final File baseDir = new File("images/");
-////                         private Image cardBackImage = new ImageIcon(this.getClass().getResource(baseDir + "/card.png")).getImage();
-////}
-////                          */
-////                         
-////                        
-////
-////                             img = new ImageIcon(this.getClass().getResource("images/default/duck.png")).getImage();
-////                             test = 2;
-////                     }else if (test == 2) {
-////                         //new File("./images/defaults/farm/farm002.png"
-////                         img = new ImageIcon(this.getClass().getResource("images/default/dog.png")).getImage();
-////                         test = 3;
-////                     } else {
-////                         //new File("./images/defaults/farm/farm003.png")
-////                         img = new ImageIcon(this.getClass().getResource("images/default/HappyDog.png")).getImage();
-////
-////                         test = 1;
-////                     }
-//                     //for(int x = 0; x < gameDiff; x++){
-//                     
-//                     //files.add(new ImageIcon(getClass().getResource(Scan.next())));
-//                     
-//                     //baseDir = mmlgame.images/(list of directories)
-//                     
-//                     
-//                     
-//                     
-////                     String selectedDir = this.baseDir.toString();
-////                     new ImageIcon(getClass().getResource(selectedDir + img + ".png")); 
-////                     
-////                     img = new ImageIcon(this.getClass().getResource(selectedDir + "/" + img + ".png")).getImage();
-//                     
-//                        img = new ImageIcon(this.getClass().getResource(baseDir + "/default/HappyDog.png")).getImage();
-//                      
-//                     
-//                        Image dimg = img.getScaledInstance(144, 216, Image.SCALE_SMOOTH);
-//                        card.setfrontImage(new ImageIcon(dimg));
-//                
-//                        // Populate card with db results
-//                        cardsList.add(card);
-//                    //}
-//            }
-            
-
+           
             // Clone list of cards for game
             for(int counter = 0; counter < gameDiff && counter < cardsList.size(); counter++){
                 // Pull out current card from the loop
@@ -469,7 +389,7 @@ public class GameScreen extends JDialog
                   
               }                   
         
-        shuffle(cardsList);
+        shuffleCard(cardsList);
         
         createGameScreen(cardsList);
      }     
