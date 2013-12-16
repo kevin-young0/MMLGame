@@ -37,6 +37,7 @@ public class GameScreen extends JDialog {
     private int allMatch;
     private int gameDiff;
     File[] comboFile;
+    File[] defaultFile;
     //ArrayList<int> randomNumbers;
 
     public GameScreen(JFrame owner) {
@@ -374,27 +375,51 @@ public class GameScreen extends JDialog {
                 fileCounter++;
             }
         }
-//        if(fileCounter < gameDiff){
-//            filePath = new File(baseDir + "/default/");
-//            comboFile .= filePath.listFiles();
-//        }
+        
+        filePath = new File(baseDir + "/default/");
+        defaultFile = filePath.listFiles();
+        
         List<File> listShuffle = Arrays.asList(comboFile);
+        List<File> defaultShuffle = Arrays.asList(defaultFile);
         Collections.shuffle(listShuffle);
-        for (int tick = 0; tick < listShuffle.size(); tick++) {
-            comboFile[tick] = listShuffle.get(tick);
-        }
+        Collections.shuffle(defaultShuffle);
+        
+        if(fileCounter > gameDiff){
+            for (int ctr = 0; ctr < gameDiff; ctr++) {
+                
+                Card card = new Card();
+                card.setbackImage(new ImageIcon(cardBackImage));
 
-        for (int ctr = 0; ctr < comboFile.length; ctr++) {
-            if (ctr < gameDiff) {
+                Image img = null;
+
+                if (listShuffle.get(ctr).isFile()) {
+                    img = new ImageIcon(listShuffle.get(ctr).getPath()).getImage();
+                }
+                Image dimg = img.getScaledInstance(144, 216, Image.SCALE_SMOOTH);
+                card.setfrontImage(new ImageIcon(dimg));
+
+                // Populate card with db results
+                cardsList.add(card);    
+            }
+        }
+        else{
+            for (int ctr = 0; ctr < gameDiff; ctr++) {
 
                 Card card = new Card();
                 card.setbackImage(new ImageIcon(cardBackImage));
 
                 Image img = null;
 
-                if (comboFile[ctr].isFile()) {
-
-                    img = new ImageIcon(comboFile[ctr].getPath()).getImage();
+                if (ctr < listShuffle.size()) {
+                    if (listShuffle.get(ctr).isFile()) {
+                        if (fileCounter <= gameDiff) {
+                            img = new ImageIcon(listShuffle.get(ctr).getPath()).getImage();
+                        }
+                    }
+                } else if (ctr < gameDiff) {
+                    if (defaultShuffle.get(ctr).isFile()) {
+                        img = new ImageIcon(defaultShuffle.get(ctr).getPath()).getImage();
+                    }
                 }
 
                 Image dimg = img.getScaledInstance(144, 216, Image.SCALE_SMOOTH);
@@ -402,17 +427,13 @@ public class GameScreen extends JDialog {
 
                 // Populate card with db results
                 cardsList.add(card);
-
             }
-
         }
         // Clone list of cards for game
         for (int counter = 0; counter < gameDiff && counter < cardsList.size(); counter++) {
             // Pull out current card from the loop
             Card orgCard = cardsList.get(counter);
-
-
-            // Make new card to populate (clone it)
+            
             Card cloneCard = new Card();
             cloneCard.setfrontImage(orgCard.getfrontImage());
             cloneCard.setbackImage(orgCard.getbackImage());
