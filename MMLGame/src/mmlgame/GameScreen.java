@@ -325,17 +325,17 @@ public class GameScreen extends JDialog {
         pnlGameScreen = new JPanel();
 
         ///////////////////////////////
-        ArrayList<Card> gameCards = new ArrayList();
-
-        for (int numCards = 0; numCards < 6; numCards++) {
-            Card gameCard = new Card();
-            gameCard.setbackImage(new ImageIcon(cardBackImage));
-
-            gameCards.add(gameCard);
-        }
+//        ArrayList<Card> gameCards = new ArrayList();
+//
+//        for (int numCards = 0; numCards < 6; numCards++) {
+//            Card gameCard = new Card();
+//            gameCard.setbackImage(new ImageIcon(cardBackImage));
+//
+//            gameCards.add(gameCard);
+//        }
         ////////////////////////////////
 
-        createGameScreen(gameCards);
+//        createGameScreen(gameCards);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
