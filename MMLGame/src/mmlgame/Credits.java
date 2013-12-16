@@ -58,7 +58,7 @@ public class Credits extends JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("images/credits.png"))); 
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("images/card.png")));  
+        jLabel2.setIcon(new javax.swing.ImageIcon("images/card.png"));  
 
         jLabel3.setText("");
 
