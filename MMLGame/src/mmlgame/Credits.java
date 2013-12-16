@@ -60,6 +60,7 @@ public class Credits extends JDialog {
 
         jLabel2.setIcon(new javax.swing.ImageIcon("images/credits2.gif"));  
 
+
         jLabel3.setText("");
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);

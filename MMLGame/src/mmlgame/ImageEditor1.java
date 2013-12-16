@@ -685,6 +685,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
             FileChannel copyFile = new FileInputStream(oldImage).getChannel();
             FileChannel dest = new FileOutputStream(javaFilePath).getChannel();
             dest.transferFrom(copyFile, 0, copyFile.size());
+
             JOptionPane.showMessageDialog(null, "Category, Image, and Caption saved!!!");
             
         } // End if() {}...
