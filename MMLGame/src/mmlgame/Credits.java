@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author RNelson
+ * @author RNelson, TBuchli, KYoung, && SPeterson
  */
 public class Credits extends JDialog {
 
@@ -58,7 +58,7 @@ public class Credits extends JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("images/credits.png"))); 
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("images/card.png")));  
+        jLabel2.setIcon(new javax.swing.ImageIcon("images/credits2.gif"));  
 
         jLabel3.setText("");
 

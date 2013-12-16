@@ -4,9 +4,8 @@
  *new folder/category, exit back to the main program, Upload an image, create a 
  *caption, and save the folder with it's proper caption in the folder...
  *
- * @author TBuchli & KYoung & RNelson & SPeterson
+ * @author TBuchli && KYoung && RNelson && SPeterson
 */
-
 package mmlgame;
 
 import java.awt.Color;
@@ -26,6 +25,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -57,16 +58,14 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     private JLabel lblImage;
     private JLabel lblIcon;
     private JLabel lblLogo;
-   static final File baseDir = new File("images/");
-   File[] comboFile;
-    
-    private final int WINDOW_WIDTH = 570;
-    private final int WINDOW_HEIGHT = 470;
-    
     private JPanel pnl1;
     private JPanel pnl2;
     private JPanel pnl3;
-    private String imageFilename = "";
+    private String imageFilename = "";    
+    private final int WINDOW_WIDTH = 570;
+    private final int WINDOW_HEIGHT = 470;
+    static final File baseDir = new File("images/");
+    File[] comboFile;
     
     // Start of Constructor...
     public ImageEditor1(JFrame owner) {
@@ -102,7 +101,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnl1.setLayout(new GridBagLayout());
 
         // Spacer between cboSelectGroup and btnAddGroup:
-        // Get the same GREEN background as...
         JPanel pnlSpacer = new JPanel();
         pnlSpacer.setBackground(pnl1.getBackground());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -270,7 +268,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
         // Takes up 10% of the width of the Navigation panel...
         gbc.weightx = .5;
-        
         gbc.weighty = 0;
 
         pnl1.add(pnlSpacer, gbc);
@@ -317,11 +314,10 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.weighty = 0;
 
         pnl2.add(pnlSpacer, gbc);
-
+        
         // Add the icon here:
         lblIcon = new JLabel();
 
-        lblIcon.setBackground(Color.ORANGE);
         lblIcon.setPreferredSize(new Dimension(144, 216));        
         lblIcon.setMinimumSize(new Dimension(144, 216));
 
@@ -341,7 +337,6 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         // Caption Label...
         lblCaption = new JLabel();
         lblCaption.setFont(new Font("Bodoni MT Black", Font.BOLD, 14));
-
         lblCaption.setBackground(Color.WHITE);
         lblCaption.setOpaque(true);
         lblCaption.setPreferredSize(new Dimension(144, 40));        
@@ -352,7 +347,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         gbc.gridx = gridx++;
         gbc.gridy = 1;
 
-        // Don't allow button to resize...
+        // Don't allow label to resize...
         gbc.fill = GridBagConstraints.NONE;
 
         // No weight setting for components (only spacers should have
@@ -382,6 +377,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         pnl2.add(pnlSpacer, gbc);
 
         gbc = new GridBagConstraints();
+        
         gbc.gridx = 0;
 
         // Set spacer above button in navigation panel...
@@ -613,6 +609,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 //        }
 
    }
+   
     // Combobox...
     private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {
 
@@ -628,14 +625,9 @@ public class ImageEditor1 extends JDialog implements ActionListener {
     private void btnAddGroupActionPerformed(java.awt.event.ActionEvent evt) {
 
         // Get a guess from the user...
-        String strCat = JOptionPane.showInputDialog("Please enter a new folder/category name: ");
+        String strCat = JOptionPane.showInputDialog("Please enter a new Category name: ");
         
-        // Validate (can't save same category names)...
-        
-        // Print folder/category name...
-        System.out.println(strCat);
-        
-        // Fill ComboBox with string name...
+       // Fill ComboBox with string name...
         cboSelectGroup.addItem(strCat);
         cboSelectGroup.setSelectedItem(strCat);
         
@@ -645,6 +637,9 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         
         // Add working directory...
         createDir.mkdir();
+        
+        // Print folder/category name...
+        System.out.println(strCat);
         
     } // End btnAddGroupActionPerformed()...
 
@@ -657,7 +652,9 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         int returnVal = fc.showOpenDialog(null);
 
         fc.setFileSelectionMode(fc.DIRECTORIES_ONLY);
+        
         if (returnVal == fc.APPROVE_OPTION) {
+            
             File selectedFile = fc.getSelectedFile();
             imageFilename = selectedFile.getPath();
             JOptionPane.showMessageDialog(null, "You selected " + imageFilename);
@@ -670,14 +667,8 @@ public class ImageEditor1 extends JDialog implements ActionListener {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
         
-        // Save ImageIcon...
-        //ImageIcon sveImage = (ImageIcon)lblIcon.getIcon();
-
         // Save Caption...
         String sveCaption = lblCaption.getText();
-        
-        // Save dialog...
-        JOptionPane.showMessageDialog(null, "Folder/Category/Image has been saved!!!");
         
         // Convert text in combobox to string...
         String newDir = cboSelectGroup.getSelectedItem().toString();
@@ -688,18 +679,15 @@ public class ImageEditor1 extends JDialog implements ActionListener {
         // Create new file...
         File javaFilePath = new File(src, "/" + lblCaption.getText() + ".png");
         File oldImage = new File(imageFilename);
+        
         if (! javaFilePath.exists()){
             
-            JOptionPane.showMessageDialog(null, "Folder/Category, Image and Caption saved!!!");
-            //oldImage.renameTo(javaFilePath);
             FileChannel copyFile = new FileInputStream(oldImage).getChannel();
             FileChannel dest = new FileOutputStream(javaFilePath).getChannel();
             dest.transferFrom(copyFile, 0, copyFile.size());
-        }else{
+            JOptionPane.showMessageDialog(null, "Category, Image, and Caption saved!!!");
             
-            System.out.println("This is not working");
-            
-        } // End if(){else{}...
+        } // End if() {}...
         
     } // End btnSaveActionPerformed()...
     
