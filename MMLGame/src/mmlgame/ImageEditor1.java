@@ -657,7 +657,7 @@ public class ImageEditor1 extends JDialog implements ActionListener {
             
             File selectedFile = fc.getSelectedFile();
             imageFilename = selectedFile.getPath();
-            JOptionPane.showMessageDialog(null, "You selected " + imageFilename);
+            //JOptionPane.showMessageDialog(null, "You selected " + imageFilename);
             ImageIcon imageView = new ImageIcon(imageFilename);
             lblIcon.setIcon(imageView);
 
