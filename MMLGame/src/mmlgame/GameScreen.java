@@ -205,24 +205,28 @@ public class GameScreen extends JDialog {
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
-//                        if(cboDifficulty.getSelectedItem().toString().equals("Beginner")){
-//                            JPanel pnlHover = (JPanel) e.getSource();
-//                            Card cardToCheck = cardsMap.get(pnlHover);
-//                            JLabel icon = (JLabel) pnlHover.getComponent(0);
-//
-//                            icon.setIcon(cardToCheck.getfrontImage());
-//                        }
+                        if(cboDifficulty.getSelectedItem().toString().equals("Beginner")){
+                            JPanel pnlHover = (JPanel) e.getSource();
+                            Card cardToCheck = cardsMap.get(pnlHover);
+                            JLabel icon = (JLabel) pnlHover.getComponent(0);
+                            if(!cardToCheck.isShowing()){
+                                icon.setIcon(cardToCheck.getfrontImage());
+                                cardToCheck.setHover(!cardToCheck.isHover());
+                            }
+                        }
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e) {
-//                        if(cboDifficulty.getSelectedItem().toString().equals("Beginner")){
-//                            JPanel pnlHover = (JPanel) e.getSource();
-//                            Card cardToCheck = cardsMap.get(pnlHover);
-//                            JLabel icon = (JLabel) pnlHover.getComponent(0);
-//
-//                            icon.setIcon(cardToCheck.getbackImage());
-//                        }
+                        if(cboDifficulty.getSelectedItem().toString().equals("Beginner")){
+                            JPanel pnlHover = (JPanel) e.getSource();
+                            Card cardToCheck = cardsMap.get(pnlHover);
+                            JLabel icon = (JLabel) pnlHover.getComponent(0);
+                            if(cardToCheck.isHover()){
+                                icon.setIcon(cardToCheck.getbackImage());
+                                cardToCheck.setHover(!cardToCheck.isHover());
+                            }
+                        }
                        
                     }
                 });
@@ -459,6 +463,7 @@ public class GameScreen extends JDialog {
         }
 
         cardToCheck.setShowing(!cardToCheck.isShowing());
+        cardToCheck.setHover(!cardToCheck.isHover());
 
         if (firstCardClicked == null) {
 

@@ -17,6 +17,7 @@ public class Card {
     private boolean showing;//indicates if the card is flipped
     private boolean matched;//if two cards are matched, don't allow them to be flipped 
     //back over until game reset
+    private boolean hover = false;
     private ImageIcon backImage;//back of the card (replace with the card.png image later)
     private ImageIcon frontImage;//front of the card (replace with images later)
     
@@ -57,6 +58,14 @@ public class Card {
     //with getters and setters, booleans are always "is", not get.
     public boolean isMatched() {
         return matched;
+    }
+    
+    public void setHover(boolean hover){
+        this.hover = hover;
+    }
+    
+    public boolean isHover(){
+        return hover;
     }
     
    public void setbackImage(ImageIcon theBack)
