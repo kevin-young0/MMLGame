@@ -11,13 +11,13 @@ import javax.swing.ImageIcon;
 
 /**
  * http://www.youtube.com/watch?v=H_2m1qdzfvg
- * @author speterson86
+ * @author TBuchli && KYoung && RNelson && SPeterson
  */
 public class Card {
     private boolean showing;//indicates if the card is flipped
     private boolean matched;//if two cards are matched, don't allow them to be flipped 
     //back over until game reset
-    private boolean hover = false;
+    private boolean hover;
     private ImageIcon backImage;//back of the card (replace with the card.png image later)
     private ImageIcon frontImage;//front of the card (replace with images later)
     
@@ -28,12 +28,14 @@ public class Card {
         showing = false;
         backImage = theBack;
         frontImage = theFront;
+        hover = false;
     }
     /*empty construtor (to create a fresh, unpopulated card object)*/
     public Card(){
         showing = false;
         backImage = null;
         frontImage = null;
+        hover = false;
     }
     
     public void setCaption(String caption) {

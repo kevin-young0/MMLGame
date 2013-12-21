@@ -101,7 +101,7 @@ public class GameScreen extends JDialog {
         gbc.weighty = .2;
         pnlNavigation.add(pnlSpacer, gbc);
 
-        String[] difficulty = {"Beginner", "Easy"};
+        String[] difficulty = {"Beginner", "Easy", "Normal"};
         cboDifficulty = new JComboBox(difficulty);
         cboDifficulty.setSelectedIndex(0);//Beginner      
         cboDifficulty.setSelectedIndex(1);//Easy
@@ -360,13 +360,18 @@ public class GameScreen extends JDialog {
         String difficulty = cboDifficulty.getSelectedItem().toString();
 
         gameDiff = 0;
-
-        if (difficulty.equals("Beginner")) {
-        /*place 3 cards and 1 copy of each card (total of 6 cards) on gamescreen*/
-            gameDiff = 3;
-        } else if (difficulty.equals("Easy")) {
-        /*place 6 cards and 1 copy of each card (total of 12 cards) on gamescreen*/
-            gameDiff = 6;
+        switch (difficulty) {
+            case "Beginner":
+                /*place 3 cards and 1 copy of each card (total of 6 cards) on gamescreen*/
+                gameDiff = 3;
+                break;
+            case "Easy":
+                /*place 6 cards and 1 copy of each card (total of 12 cards) on gamescreen*/
+                gameDiff = 6;
+                break;
+            case "Normal":
+                gameDiff = 12;
+                break;
         }
 
         String userDir = cboImages.getSelectedItem().toString();
